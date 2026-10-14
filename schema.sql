@@ -19,8 +19,7 @@ create table if not exists public.bb_languages (
 
 create table if not exists public.bb_contributions (
   id         bigint generated always as identity primary key,
-  animal_id  text not null check (animal_id in
-               ('dog','cat','cow','duck','pig','rooster','sheep','frog','owl','chick')),
+  animal_id  text not null,
   lang_code  text not null check (char_length(lang_code) between 1 and 20),
   kind       text not null check (kind in ('words','sounds')),
   text       text check (text is null or char_length(text) <= 200),
@@ -30,6 +29,12 @@ create table if not exists public.bb_contributions (
   created_at timestamptz not null default now(),
   check (text is not null or recording is not null)
 );
+
+-- The list of animals lives in one named constraint so it can be updated by re-running this file.
+alter table public.bb_contributions drop constraint if exists bb_contributions_animal_id_check;
+alter table public.bb_contributions add constraint bb_contributions_animal_id_check check (animal_id in
+  ('dog','cat','cow','duck','pig','rooster','sheep','frog','owl','chick',
+   'horse','goat','wolf','lion','monkey','mouse','bee','snake','elephant','turkey'));
 
 -- Lets the page list recordings without downloading them (fetched on play instead).
 alter table public.bb_contributions
