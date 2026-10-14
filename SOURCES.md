@@ -24,7 +24,7 @@ That Wikipedia article carries its own "needs more citations" banner, so a match
 ## English notes
 
 - Cat: Wikipedia gives *miaow* (UK) and *meow* (US). The site uses *meow*.
-- Frog: Wikipedia gives *ribbit* for the US and *croak* for Britain. The site uses *croak*.
+- Frog: Wikipedia gives *ribbit* for the US and *croak* for Britain. The site uses *ribbit ribbit*, the form children expect.
 
 ## Not found in any reliable source (treat as unverified)
 
