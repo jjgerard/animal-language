@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Animal Language — A Language-Noticing Trail</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="A UK language-noticing activity: hear an animal's name and the sound it makes across languages spoken in the UK and beyond, record your own examples, and add languages of your own." />
+<style>
+  :root{
+    --paper:#F2ECDA;
+    --board:#1F3A2E;
+    --board-ink:#F2ECDA;
+    --ink:#1C2621;
+    --ink-soft:#4B564C;
+    --accent:#B9752A;
+    --accent-ink:#2A1600;
+    --accent-2:#B9452B;
+    --accent-2-ink:#fff;
+    --line:#C9BEA0;
+    --card:#FBF8EE;
+    --community:#2F6B7A;
+    --community-bg:#DCEAEC;
+    --rec:#C22B2B;
+    --shadow: 0 1px 0 rgba(28,38,33,.05), 0 6px 16px -8px rgba(28,38,33,.25);
+    --radius: 14px;
+    --serif: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --paper:#16231C;
+      --board:#0E1712;
+      --board-ink:#E9E3CE;
+      --ink:#E9E3CE;
+      --ink-soft:#AFA98F;
+      --accent:#E3A94E;
+      --accent-ink:#241300;
+      --accent-2:#E1704F;
+      --accent-2-ink:#2A0900;
+      --line:#3A4A3C;
+      --card:#1D2B22;
+      --community:#7FC3D2;
+      --community-bg:#193038;
+      --rec:#FF6B5C;
+      --shadow: 0 1px 0 rgba(0,0,0,.3), 0 10px 24px -10px rgba(0,0,0,.6);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#16231C; --board:#0E1712; --board-ink:#E9E3CE; --ink:#E9E3CE; --ink-soft:#AFA98F;
+    --accent:#E3A94E; --accent-ink:#241300; --accent-2:#E1704F; --accent-2-ink:#2A0900;
+    --line:#3A4A3C; --card:#1D2B22; --community:#7FC3D2; --community-bg:#193038; --rec:#FF6B5C;
+    --shadow: 0 1px 0 rgba(0,0,0,.3), 0 10px 24px -10px rgba(0,0,0,.6);
+  }
+  :root[data-theme="light"]{
+    --paper:#F2ECDA; --board:#1F3A2E; --board-ink:#F2ECDA; --ink:#1C2621; --ink-soft:#4B564C;
+    --accent:#B9752A; --accent-ink:#2A1600; --accent-2:#B9452B; --accent-2-ink:#fff;
+    --line:#C9BEA0; --card:#FBF8EE; --community:#2F6B7A; --community-bg:#DCEAEC; --rec:#C22B2B;
+    --shadow: 0 1px 0 rgba(28,38,33,.05), 0 6px 16px -8px rgba(28,38,33,.25);
+  }
+
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--sans); line-height:1.5; -webkit-font-smoothing:antialiased;}
+  .eyebrow{ font-family:var(--sans); font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft); font-weight:700; }
+  h1,h2,h3{ font-family:var(--serif); font-weight:700; text-wrap:balance; margin:0; }
+  a{color:inherit;}
+
+  button{ font-family:var(--sans); cursor:pointer; }
+  button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible{
+    outline:3px solid var(--accent-2); outline-offset:2px;
+  }
+
+  /* ---------- Hero / signboard ---------- */
+  .board{ background:var(--board); color:var(--board-ink); }
+  .board-inner{ max-width:1040px; margin:0 auto; padding:40px 24px 28px; }
+  .board .eyebrow{ color:var(--board-ink); opacity:.72; }
+  .title{ font-size:clamp(34px,6vw,54px); margin-top:6px; letter-spacing:.01em; }
+  .title em{ font-style:normal; color:var(--accent); }
+
+  .hero-row{ display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; }
+  .hero-title-wrap{ flex:1 1 auto; min-width:240px; }
+  .hero-desc{ font-family:var(--serif); font-size:clamp(15px,2vw,17px); color:var(--board-ink); opacity:.88; max-width:32ch; margin:0; text-align:right; }
+  @media (max-width:700px){ .hero-desc{ text-align:left; max-width:100%; } }
+
+  .toolbar{ display:flex; flex-wrap:wrap; gap:10px; margin-top:24px; align-items:center; }
+  .stat{ font-family:var(--mono); font-variant-numeric:tabular-nums; font-size:12.5px; color:var(--board-ink); opacity:.75; border:1px solid rgba(242,236,218,.28); border-radius:999px; padding:6px 12px; }
+  .btn{ border-radius:999px; border:1px solid transparent; padding:9px 16px; font-size:14px; font-weight:600; display:inline-flex; align-items:center; gap:7px; white-space:nowrap; transition:transform .12s ease; }
+  .btn:active{ transform:scale(.97); }
+  .btn-accent{ background:var(--accent); color:var(--accent-ink); }
+  .btn-ghost-on-board{ background:transparent; color:var(--board-ink); border-color:rgba(242,236,218,.35); }
+  .btn-ghost-on-board:hover{ background:rgba(242,236,218,.1); }
+  .btn-outline{ background:transparent; color:var(--ink); border-color:var(--line); }
+  .btn-outline:hover{ background:var(--card); }
+  .btn-text{ background:none; border:none; color:var(--ink-soft); font-size:13px; text-decoration:underline; text-underline-offset:3px; padding:6px 4px; }
+  .btn-danger{ background:none; border:1px solid var(--rec); color:var(--rec); }
+  .admin-controls{ display:flex; gap:10px; flex-wrap:wrap; }
+  .admin-toggle{ margin-left:auto; background:none; border:1px solid rgba(242,236,218,.3); color:var(--board-ink); opacity:.5; border-radius:999px; width:30px; height:30px; font-size:13px; }
+  .admin-toggle:hover{ opacity:1; }
+
+  /* ---------- Grid of animal cards ---------- */
+  .wrap{ max-width:1040px; margin:0 auto; padding:28px 24px 60px; }
+  .grid-caption{ font-family:var(--mono); font-size:12px; color:var(--ink-soft); margin:0 0 14px; }
+
+  .grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(148px,1fr)); gap:14px; }
+  .card{ background:var(--card); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:18px 12px 14px; text-align:center; display:flex; flex-direction:column; align-items:center; gap:6px; transition:transform .15s ease, box-shadow .15s ease; }
+  .card:hover{ transform:translateY(-3px); }
+  .card .emoji{ font-size:44px; line-height:1; }
+  .card .label{ font-family:var(--serif); font-weight:700; font-size:16px; }
+  .card .avail{ font-family:var(--mono); font-size:11px; color:var(--ink-soft); }
+  @media (prefers-reduced-motion: reduce){ .card{ transition:none; } .card:hover{ transform:none; } }
+
+  /* ---------- Modal (passport panel) ---------- */
+  .scrim{ position:fixed; inset:0; background:rgba(14,23,18,.55); display:none; align-items:flex-end; justify-content:center; padding:0; z-index:50; }
+  .scrim.open{ display:flex; }
+  @media (min-width:700px){ .scrim{ align-items:center; padding:24px; } }
+
+  .panel{ background:var(--paper); width:100%; max-width:720px; max-height:88vh; border-radius:18px 18px 0 0; overflow:hidden; display:flex; flex-direction:column; border:1px solid var(--line); }
+  @media (min-width:700px){ .panel{ border-radius:18px; } }
+  .panel.narrow{ max-width:480px; }
+
+  .panel-head{ background:var(--board); color:var(--board-ink); padding:20px 22px; display:flex; align-items:center; gap:14px; }
+  .panel-head .emoji{ font-size:38px; }
+  .panel-head h3{ font-size:22px; }
+  .panel-head .close{ margin-left:auto; background:none; border:1px solid rgba(242,236,218,.35); color:var(--board-ink); border-radius:999px; width:32px; height:32px; font-size:16px; flex:none; }
+
+  .panel-body{ overflow-y:auto; padding:8px 0 18px; }
+
+  .lang-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:12px; padding:14px 22px 20px; }
+  .lang-tile{ background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px 14px 14px; display:flex; flex-direction:column; gap:8px; }
+  .lang-tile-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap; }
+  .lang-info{ display:flex; flex-direction:column; gap:1px; }
+  .lang-name-big{ font-family:var(--serif); font-weight:700; font-size:19px; }
+  .lang-native{ font-size:12px; color:var(--ink-soft); }
+  .voice-note{ font-family:var(--mono); font-size:10.5px; color:var(--ink-soft); opacity:.85; display:block; margin-top:2px; max-width:24ch; }
+  .word-slot{ flex:none; }
+  .word-slot .pill-row{ justify-content:flex-end; }
+
+  .variant-group.sound-group{ background:color-mix(in srgb, var(--accent-2) 14%, var(--card)); border-radius:10px; padding:8px; }
+  .pill-row{ display:flex; flex-wrap:wrap; gap:8px; }
+  .pill{ display:inline-flex; align-items:center; gap:6px; background:var(--paper); border:1px solid var(--line); border-radius:999px; padding:6px 10px; font-size:14px; cursor:pointer; color:inherit; font-family:inherit; }
+  .pill:hover{ background:color-mix(in srgb, var(--accent-2) 10%, var(--paper)); border-color:var(--accent-2); }
+  .pill.speaking{ animation:pulse 1s ease-in-out infinite; }
+  .pill.no-voice{ opacity:.45; }
+  @keyframes pulse{ 0%,100%{ transform:scale(1);} 50%{ transform:scale(1.06);} }
+  @media (prefers-reduced-motion: reduce){ .pill.speaking{ animation:none; } }
+  .pill-icon{ font-size:12px; }
+  .pill-mic{ font-size:11px; opacity:.7; }
+  .pill-tag{ font-size:9.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; background:var(--community-bg); color:var(--community); border-radius:999px; padding:1px 6px; }
+  .pill-tag.pending{ background:color-mix(in srgb, var(--rec) 22%, var(--card)); color:var(--rec); }
+  .add-pill{ background:none; border:1px dashed var(--line); color:var(--ink-soft); font-weight:600; padding:6px 12px; cursor:pointer; }
+  .add-pill:hover{ border-color:var(--accent-2); color:var(--accent-2); }
+
+  .pending-row{ display:flex; justify-content:space-between; align-items:center; gap:12px; padding:10px 22px; border-top:1px solid var(--line); flex-wrap:wrap; }
+  .pending-info{ font-size:14px; flex:1; min-width:220px; }
+  .pending-code{ color:var(--ink-soft); font-family:var(--mono); font-size:12px; }
+  .pending-actions{ display:flex; gap:8px; flex:none; }
+
+  /* ---------- Add-language / editor form fields ---------- */
+  .add-panel-body{ padding:18px 22px 24px; }
+  .add-panel-body label{ display:block; font-size:12px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-soft); margin:14px 0 5px; }
+  .add-panel-body input, .add-panel-body select{ width:100%; font-size:15px; padding:9px 11px; border:1px solid var(--line); border-radius:9px; background:var(--card); color:var(--ink); font-family:var(--sans); }
+  .add-hint{ font-size:12.5px; color:var(--ink-soft); margin-top:6px; }
+  .add-table{ margin-top:18px; border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .add-table-row{ display:grid; grid-template-columns: 90px 1fr 1fr; gap:10px; padding:9px 12px; align-items:center; border-top:1px solid var(--line); }
+  .add-table-row:first-child{ border-top:none; }
+  .add-table-row .a-label{ font-size:13px; display:flex; align-items:center; gap:6px; }
+  .add-table-row input{ font-size:13.5px; padding:6px 8px; }
+  .add-table-head{ display:grid; grid-template-columns: 90px 1fr 1fr; gap:10px; padding:8px 12px; background:var(--card); font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-soft); }
+  .add-actions{ display:flex; gap:10px; margin-top:18px; justify-content:flex-end; flex-wrap:wrap; }
+
+  /* ---------- Variant editor (add/edit word or sound, incl. recording) ---------- */
+  .variant-subtitle{ font-size:13.5px; color:var(--ink-soft); margin-top:2px; }
+  .rec-box{ margin-top:8px; border:1px dashed var(--line); border-radius:12px; padding:14px; background:var(--card); }
+  .rec-row{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .rec-btn{ border-radius:999px; border:1px solid var(--rec); background:none; color:var(--rec); padding:9px 16px; font-weight:700; font-size:14px; display:inline-flex; align-items:center; gap:8px; }
+  .rec-btn.recording{ background:var(--rec); color:#fff; }
+  .rec-dot{ width:9px; height:9px; border-radius:50%; background:var(--rec); display:none; }
+  .rec-btn.recording .rec-dot{ display:inline-block; background:#fff; animation:recblink 1s ease-in-out infinite; }
+  @keyframes recblink{ 0%,100%{ opacity:1;} 50%{ opacity:.25;} }
+  @media (prefers-reduced-motion: reduce){ .rec-btn.recording .rec-dot{ animation:none; } }
+  .rec-time{ font-family:var(--mono); font-variant-numeric:tabular-nums; font-size:13px; color:var(--ink-soft); }
+  .rec-preview{ margin-top:10px; display:none; align-items:center; gap:10px; flex-wrap:wrap; }
+  .rec-preview.show{ display:flex; }
+  .rec-preview audio{ height:32px; max-width:220px; }
+  .rec-clear{ background:none; border:none; color:var(--ink-soft); font-size:13px; text-decoration:underline; text-underline-offset:2px; }
+
+  .visually-hidden{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
+  .toast{ position:fixed; bottom:18px; left:50%; transform:translateX(-50%); background:var(--board); color:var(--board-ink); padding:10px 18px; border-radius:999px; font-size:13.5px; box-shadow:var(--shadow); z-index:80; opacity:0; pointer-events:none; transition:opacity .25s ease; max-width:90vw; text-align:center; }
+  .toast.show{ opacity:1; }
+</style>
+</head>
+<body>
+
+<header class="board">
+  <div class="board-inner">
+    <div class="hero-row">
+      <div class="hero-title-wrap">
+        <div class="eyebrow">A language-noticing activity</div>
+        <h1 class="title">Animal <em>Language</em></h1>
+      </div>
+      <p class="hero-desc">What do animals say around the world? Let's find out! If you don't see a language, you can add it!</p>
+    </div>
+    <div class="toolbar">
+      <button class="btn btn-accent" id="openAddLang">+ Add a language</button>
+      <span class="stat" id="statCount">10 animals · 12 languages</span>
+      <span class="admin-controls" id="adminControls" style="display:none;">
+        <button class="btn btn-ghost-on-board" id="openPending">Review pending</button>
+        <button class="btn btn-ghost-on-board" id="openExport">Export contributions</button>
+        <button class="btn btn-ghost-on-board" id="openImport">Import contributions</button>
+        <button class="btn btn-ghost-on-board" id="resetDefaults">Reset to defaults</button>
+        <input type="file" id="importFile" accept="application/json" class="visually-hidden" />
+      </span>
+      <button class="admin-toggle" id="adminToggle" type="button" title="Admin tools" aria-label="Toggle admin tools">⚙</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <p class="grid-caption" id="gridCount"></p>
+  <div class="grid" id="animalGrid"></div>
+</main>
+
+<div class="scrim" id="scrim">
+  <div class="panel" id="animalPanel" role="dialog" aria-modal="true" aria-labelledby="panelTitle">
+    <div class="panel-head">
+      <span class="emoji" id="panelEmoji"></span>
+      <h3 id="panelTitle"></h3>
+      <button class="close" id="closePanel" aria-label="Close">✕</button>
+    </div>
+    <div class="panel-body" id="panelBody"></div>
+  </div>
+</div>
+
+<div class="scrim" id="scrimAdd">
+  <div class="panel" id="addPanel" role="dialog" aria-modal="true" aria-labelledby="addTitle">
+    <div class="panel-head">
+      <span class="emoji">🌍</span>
+      <h3 id="addTitle">Add a language</h3>
+      <button class="close" id="closeAdd" aria-label="Close">✕</button>
+    </div>
+    <div class="panel-body">
+      <div class="add-panel-body">
+        <label for="langNameInput">Language name</label>
+        <input list="langSuggestions" id="langNameInput" placeholder="e.g. Bengali, Portuguese, Somali…" autocomplete="off" />
+        <datalist id="langSuggestions"></datalist>
+        <div class="add-hint">Pick a suggestion to auto-fill a voice code, or type any language.</div>
+
+        <label for="langCodeInput">Voice code (BCP-47, optional)</label>
+        <input id="langCodeInput" placeholder="e.g. bn-BD — leave blank if unsure" autocomplete="off" />
+        <div class="add-hint">Tells the device which pronunciation rules to use for text-to-speech. Leave blank and use recordings instead if you're not sure.</div>
+
+        <div class="add-table" id="addTable"></div>
+        <div class="add-hint">Fill in a first word and sound for any animals you know — you can add more versions, or record audio, from each animal's passport afterwards.</div>
+        <div class="add-actions">
+          <button class="btn btn-outline" id="cancelAddLang">Cancel</button>
+          <button class="btn btn-accent" id="saveAddLang">Save language</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="scrim" id="scrimVariant">
+  <div class="panel narrow" id="variantPanel" role="dialog" aria-modal="true" aria-labelledby="variantTitle">
+    <div class="panel-head">
+      <span class="emoji">✎</span>
+      <h3 id="variantTitle">Add a word</h3>
+      <button class="close" id="closeVariant" aria-label="Close">✕</button>
+    </div>
+    <div class="panel-body">
+      <div class="add-panel-body">
+        <p class="variant-subtitle" id="variantSubtitle"></p>
+        <label for="variantText">Text (optional if you record audio)</label>
+        <input id="variantText" placeholder="Type how it's said or spelled…" autocomplete="off" />
+
+        <div class="rec-box" id="recBox">
+          <div class="rec-row">
+            <button class="rec-btn" id="recBtn" type="button"><span class="rec-dot"></span><span id="recBtnLabel">🎙 Record (up to 6s)</span></button>
+            <span class="rec-time" id="recTime"></span>
+          </div>
+          <div class="rec-preview" id="recPreview">
+            <audio controls id="recAudio"></audio>
+            <button class="rec-clear" id="recClear">Remove recording</button>
+          </div>
+        </div>
+
+        <div class="add-actions">
+          <button class="btn btn-outline" id="cancelVariant">Cancel</button>
+          <button class="btn btn-accent" id="saveVariant">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="scrim" id="scrimPending">
+  <div class="panel" id="pendingPanel" role="dialog" aria-modal="true" aria-labelledby="pendingTitle">
+    <div class="panel-head">
+      <span class="emoji">🕵️</span>
+      <h3 id="pendingTitle">Review pending contributions</h3>
+      <button class="close" id="closePending" aria-label="Close">✕</button>
+    </div>
+    <div class="panel-body" id="pendingBody"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="config.js"></script>
+<script>
+(function(){
+  "use strict";
+
+  var ANIMALS = [
+    {id:'dog', label:'Dog', emoji:'🐶'},
+    {id:'cat', label:'Cat', emoji:'🐱'},
+    {id:'cow', label:'Cow', emoji:'🐮'},
+    {id:'duck', label:'Duck', emoji:'🦆'},
+    {id:'pig', label:'Pig', emoji:'🐷'},
+    {id:'rooster', label:'Rooster', emoji:'🐓'},
+    {id:'sheep', label:'Sheep', emoji:'🐑'},
+    {id:'frog', label:'Frog', emoji:'🐸'},
+    {id:'owl', label:'Owl', emoji:'🦉'},
+    {id:'chick', label:'Chick', emoji:'🐣'}
+  ];
+
+  var DEFAULT_LANGUAGES = [
+    {code:'en-GB', name:'English', native:'English'},
+    {code:'cy-GB', name:'Welsh', native:'Cymraeg'},
+    {code:'pl-PL', name:'Polish', native:'Polski'},
+    {code:'ur-PK', name:'Urdu', native:'اردو'},
+    {code:'pa-IN', name:'Punjabi', native:'ਪੰਜਾਬੀ'},
+    {code:'ar-SA', name:'Arabic', native:'العربية'},
+    {code:'fr-FR', name:'French', native:'Français'},
+    {code:'es-ES', name:'Spanish', native:'Español'},
+    {code:'de-DE', name:'German', native:'Deutsch'},
+    {code:'it-IT', name:'Italian', native:'Italiano'},
+    {code:'ja-JP', name:'Japanese', native:'日本語'},
+    {code:'zh-CN', name:'Mandarin Chinese', native:'中文'}
+  ];
+
+  var LANG_SUGGESTIONS = [
+    {name:'Bengali', code:'bn-BD'}, {name:'Gujarati', code:'gu-IN'},
+    {name:'Portuguese', code:'pt-PT'}, {name:'Somali', code:'so-SO'},
+    {name:'Turkish', code:'tr-TR'}, {name:'Romanian', code:'ro-RO'},
+    {name:'Lithuanian', code:'lt-LT'}, {name:'Tagalog', code:'fil-PH'},
+    {name:'Vietnamese', code:'vi-VN'}, {name:'Yoruba', code:'yo-NG'},
+    {name:'Greek', code:'el-GR'}, {name:'Russian', code:'ru-RU'},
+    {name:'Scottish Gaelic', code:'gd-GB'}, {name:'Irish', code:'ga-IE'},
+    {name:'Hindi', code:'hi-IN'}
+  ];
+
+  // Compact authoring format. w/s accept a string, an array of strings (multiple
+  // variants in the same script), or an array of [text, speak] pairs (speak = raw
+  // script used for TTS when the displayed text includes a transliteration in brackets).
+  // ws/ss give a shared speak-override when w/s is a single string. c = community-sourced
+  // (lower-confidence colloquial forms, flagged so they read as informal rather than settled fact).
+  var WORDS_RAW = {
+    dog: {
+      'en-GB':{w:['dog'], s:['woof woof', 'bow-wow', 'bark']},
+      'cy-GB':{w:'ci', s:'wff wff', c:true},
+      'pl-PL':{w:'pies', s:'hau hau'},
+      'ur-PK':{w:'کتا (kutta)', ws:'کتا', s:'بھو بھو (bhow bhow)', ss:'بھو بھو', c:true},
+      'pa-IN':{w:'ਕੁੱਤਾ (kutta)', ws:'ਕੁੱਤਾ', s:'ਭੌਂ ਭੌਂ (bhow bhow)', ss:'ਭੌਂ ਭੌਂ', c:true},
+      'ar-SA':{w:'كلب (kalb)', ws:'كلب', s:'هاو هاو (haw haw)', ss:'هاو هاو'},
+      'fr-FR':{w:'chien', s:['ouaf ouaf', 'wouf wouf']},
+      'es-ES':{w:'perro', s:'guau guau'},
+      'de-DE':{w:'Hund', s:['wau wau', 'hau hau']},
+      'it-IT':{w:'cane', s:'bau bau'},
+      'ja-JP':{w:'犬 (inu)', ws:'犬', s:'わんわん (wan wan)', ss:'わんわん'},
+      'zh-CN':{w:'狗 (gǒu)', ws:'狗', s:'汪汪 (wāng wāng)', ss:'汪汪'}
+    },
+    cat: {
+      'en-GB':{w:'cat', s:['meow meow', 'miaow miaow']},
+      'cy-GB':{w:'cath', s:'miaw', c:true},
+      'pl-PL':{w:'kot', s:'miau miau'},
+      'ur-PK':{w:'بلی (billi)', ws:'بلی', s:'میاؤں (miyaon)', ss:'میاؤں', c:true},
+      'pa-IN':{w:'ਬਿੱਲੀ (billi)', ws:'ਬਿੱਲੀ', s:'ਮਿਆਊਂ (miaun)', ss:'ਮਿਆਊਂ', c:true},
+      'ar-SA':{w:'قطة (qitta)', ws:'قطة', s:'مواء (mewa)', ss:'مواء'},
+      'fr-FR':{w:'chat', s:'miaou'},
+      'es-ES':{w:'gato', s:'miau'},
+      'de-DE':{w:'Katze', s:'miau'},
+      'it-IT':{w:'gatto', s:'miao'},
+      'ja-JP':{w:'猫 (neko)', ws:'猫', s:'にゃあにゃあ (nyaa nyaa)', ss:'にゃあにゃあ'},
+      'zh-CN':{w:'猫 (māo)', ws:'猫', s:'喵喵 (miāo miāo)', ss:'喵喵'}
+    },
+    cow: {
+      'en-GB':{w:'cow', s:'moo'},
+      'cy-GB':{w:'buwch'},
+      'pl-PL':{w:'krowa', s:'muu'},
+      'ur-PK':{w:'گائے (gaay)', ws:'گائے'},
+      'pa-IN':{w:'ਗਾਂ (gaan)', ws:'ਗਾਂ'},
+      'ar-SA':{w:'بقرة (baqara)', ws:'بقرة', s:'خوار (khowar)', ss:'خوار'},
+      'fr-FR':{w:'vache', s:'meuh'},
+      'es-ES':{w:'vaca', s:'muu'},
+      'de-DE':{w:'Kuh', s:'muh'},
+      'it-IT':{w:'mucca', s:'muu'},
+      'ja-JP':{w:'牛 (ushi)', ws:'牛', s:'もーもー (mō mō)', ss:'もーもー'},
+      'zh-CN':{w:'牛 (niú)', ws:'牛', s:'哞哞 (mōu mōu)', ss:'哞哞'}
+    },
+    duck: {
+      'en-GB':{w:'duck', s:'quack quack'},
+      'cy-GB':{w:'hwyaden', s:'cwac cwac', c:true},
+      'pl-PL':{w:'kaczka', s:'kwa kwa'},
+      'ur-PK':{w:'بطخ (batakh)', ws:'بطخ'},
+      'pa-IN':{w:'ਬੱਤਖ (battakh)', ws:'ਬੱਤਖ'},
+      'ar-SA':{w:'بطة (batta)', ws:'بطة', s:'بق بق (baq baq)', ss:'بق بق'},
+      'fr-FR':{w:'canard', s:'coin coin'},
+      'es-ES':{w:'pato', s:'cuac cuac'},
+      'de-DE':{w:'Ente', s:'quak quak'},
+      'it-IT':{w:'anatra', s:'qua qua'},
+      'ja-JP':{w:'あひる (ahiru)', s:'ガーガー (gaa gaa)', ss:'ガーガー'},
+      'zh-CN':{w:'鸭 (yā)', ws:'鸭', s:'嘎嘎 (gā gā)', ss:'嘎嘎'}
+    },
+    pig: {
+      'en-GB':{w:'pig', s:'oink oink'},
+      'cy-GB':{w:'mochyn'},
+      'pl-PL':{w:'świnia', s:'chrum chrum'},
+      'ur-PK':{w:'سور (soor)', ws:'سور'},
+      'pa-IN':{w:'ਸੂਰ (soor)', ws:'ਸੂਰ'},
+      'ar-SA':{w:'خنزير (khinzir)', ws:'خنزير', s:'خن خن (khun khun)', ss:'خن خن', c:true},
+      'fr-FR':{w:'cochon', s:'groin groin'},
+      'es-ES':{w:'cerdo', s:'oinc oinc'},
+      'de-DE':{w:'Schwein', s:'grunz grunz'},
+      'it-IT':{w:'maiale', s:'grunf grunf'},
+      'ja-JP':{w:'豚 (buta)', ws:'豚', s:'ブーブー (buu buu)', ss:'ブーブー'},
+      'zh-CN':{w:'猪 (zhū)', ws:'猪', s:'哼哼 (hēng hēng)', ss:'哼哼'}
+    },
+    rooster: {
+      'en-GB':{w:['rooster', 'cockerel'], s:'cock-a-doodle-doo'},
+      'cy-GB':{w:'ceiliog'},
+      'pl-PL':{w:'kogut', s:'kukuryku'},
+      'ur-PK':{w:'مرغا (murga)', ws:'مرغا'},
+      'pa-IN':{w:'ਕੁੱਕੜ (kukkar)', ws:'ਕੁੱਕੜ'},
+      'ar-SA':{w:'ديك (deek)', ws:'ديك', s:'كوكوكو (koko koko)', ss:'كوكوكو'},
+      'fr-FR':{w:'coq', s:'cocorico'},
+      'es-ES':{w:'gallo', s:'quiquiriquí'},
+      'de-DE':{w:'Hahn', s:'kikeriki'},
+      'it-IT':{w:'gallo', s:'chicchirichì'},
+      'ja-JP':{w:'にわとり (niwatori)', s:'コケコッコー (kokekokkō)', ss:'コケコッコー'},
+      'zh-CN':{w:'公鸡 (gōngjī)', ws:'公鸡', s:'喔喔喔 (ō ō ō)', ss:'喔喔喔'}
+    },
+    sheep: {
+      'en-GB':{w:'sheep', s:'baa baa'},
+      'cy-GB':{w:'dafad'},
+      'pl-PL':{w:'owca', s:'bee'},
+      'ur-PK':{w:'بھیڑ (bhed)', ws:'بھیڑ'},
+      'pa-IN':{w:'ਭੇਡ (bhed)', ws:'ਭੇਡ'},
+      'ar-SA':{w:'خروف (kharoof)', ws:'خروف', s:'بعّ بعّ (ba\' ba\')', ss:'بعّ بعّ'},
+      'fr-FR':{w:'mouton', s:'bêê'},
+      'es-ES':{w:'oveja', s:'beee'},
+      'de-DE':{w:'Schaf', s:'mäh mäh'},
+      'it-IT':{w:'pecora', s:'beee'},
+      'ja-JP':{w:'羊 (hitsuji)', ws:'羊', s:'メーメー (mē mē)', ss:'メーメー'},
+      'zh-CN':{w:'羊 (yáng)', ws:'羊', s:'咩咩 (miē miē)', ss:'咩咩'}
+    },
+    frog: {
+      'en-GB':{w:'frog', s:'ribbit ribbit'},
+      'cy-GB':{w:'llyffant'},
+      'pl-PL':{w:'żaba', s:'kum kum'},
+      'ur-PK':{w:'مینڈک (mendak)', ws:'مینڈک'},
+      'pa-IN':{w:'ਡੱਡੂ (daddu)', ws:'ਡੱਡੂ'},
+      'ar-SA':{w:'ضفدع (dafda\')', ws:'ضفدع', s:'نقنق نقنق (naqnaq naqnaq)', ss:'نقنق نقنق'},
+      'fr-FR':{w:'grenouille', s:'coa coa'},
+      'es-ES':{w:'rana', s:'croac croac'},
+      'de-DE':{w:'Frosch', s:'quak quak'},
+      'it-IT':{w:'rana', s:'cra cra'},
+      'ja-JP':{w:'蛙 (kaeru)', ws:'蛙', s:'ケロケロ (kero kero)', ss:'ケロケロ'},
+      'zh-CN':{w:'青蛙 (qīngwā)', ws:'青蛙', s:'呱呱 (guā guā)', ss:'呱呱'}
+    },
+    owl: {
+      'en-GB':{w:'owl', s:'hoo'},
+      'cy-GB':{w:'tylluan'},
+      'pl-PL':{w:'sowa', s:'hu hu'},
+      'ur-PK':{w:'الو (ulloo)', ws:'الو'},
+      'pa-IN':{w:'ਉੱਲੂ (ullu)', ws:'ਉੱਲੂ'},
+      'ar-SA':{w:'بومة (booma)', ws:'بومة', s:'بوو بوو (boo boo)', ss:'بوو بوو', c:true},
+      'fr-FR':{w:'hibou', s:'hou hou'},
+      'es-ES':{w:'búho', s:'uu uu'},
+      'de-DE':{w:'Eule', s:'huhu'},
+      'it-IT':{w:'gufo', s:'gu gu'},
+      'ja-JP':{w:'フクロウ (fukurou)', s:'ホーホー (hō hō)', ss:'ホーホー'},
+      'zh-CN':{w:'猫头鹰 (māotóuyīng)', ws:'猫头鹰', s:'咕咕 (gū gū)', ss:'咕咕', c:true}
+    },
+    chick: {
+      'en-GB':{w:'chick', s:'cheep cheep'},
+      'cy-GB':{w:'cyw'},
+      'pl-PL':{w:'kurczątko', s:'pio pio'},
+      'ur-PK':{w:'چوزہ (chooza)', ws:'چوزہ'},
+      'pa-IN':{w:'ਚੂਚਾ (chucha)', ws:'ਚੂਚਾ'},
+      'ar-SA':{w:'كتكوت (katkoot)', ws:'كتكوت', s:'بيبي بيبي (peep peep)', ss:'بيبي بيبي', c:true},
+      'fr-FR':{w:'poussin', s:'piou piou'},
+      'es-ES':{w:'pollito', s:'pío pío'},
+      'de-DE':{w:'Küken', s:'piep piep'},
+      'it-IT':{w:'pulcino', s:'pio pio'},
+      'ja-JP':{w:'ひよこ (hiyoko)', s:'ピヨピヨ (piyo piyo)', ss:'ピヨピヨ'},
+      'zh-CN':{w:'小鸡 (xiǎojī)', ws:'小鸡', s:'叽叽 (jī jī)', ss:'叽叽'}
+    }
+  };
+
+  function toVariants(field){
+    if(field == null) return [];
+    var arr = Array.isArray(field) ? field : [field];
+    return arr.map(function(item){
+      return Array.isArray(item) ? {text:item[0], speak:item[1]} : {text:item};
+    });
+  }
+
+  function buildDefaultWords(){
+    var out = {};
+    Object.keys(WORDS_RAW).forEach(function(animalId){
+      out[animalId] = {};
+      Object.keys(WORDS_RAW[animalId]).forEach(function(code){
+        var e = WORDS_RAW[animalId][code];
+        var source = e.c ? 'community' : 'seed';
+        var words = toVariants(e.w).map(function(v){ return {text:v.text, speak:v.speak||e.ws||v.text, source:source}; });
+        var sounds = toVariants(e.s).map(function(v){ return {text:v.text, speak:v.speak||e.ss||v.text, source:source}; });
+        out[animalId][code] = {words:words, sounds:sounds};
+      });
+    });
+    return out;
+  }
+
+  var STORAGE_KEY = 'animalLanguage_v1';
+  var state = null;
+  var currentOpenAnimalId = null;
+  var adminUrlHint = /(^|[?&])admin=1(&|$)/.test(location.search);
+  var isAdmin = false;
+
+  // ---------- Shared database (Supabase) ----------
+  // Same apiGet/apiPost shape the rest of the page already uses, now backed by Supabase's
+  // REST API. Visitors use the public anon key; the admin signs in with email + password.
+  var CFG = window.BB_CONFIG || {};
+  var ADMIN_TOKEN_KEY = 'bbAdminToken';
+
+  function backendReady(){ return !!(CFG.supabaseUrl && CFG.anonKey); }
+  function adminToken(){ try{ return sessionStorage.getItem(ADMIN_TOKEN_KEY) || ''; }catch(e){ return ''; } }
+
+  function sb(method, path, opts){
+    opts = opts || {};
+    if(!backendReady()) return Promise.reject(new Error('not configured'));
+    var headers = {
+      'apikey': CFG.anonKey,
+      'Authorization': 'Bearer ' + (opts.token || CFG.anonKey),
+      'Content-Type': 'application/json'
+    };
+    if(opts.prefer) headers['Prefer'] = opts.prefer;
+    return fetch(CFG.supabaseUrl.replace(/\/+$/, '') + path, {
+      method: method,
+      headers: headers,
+      body: opts.body === undefined ? undefined : JSON.stringify(opts.body)
+    }).then(function(r){
+      return r.text().then(function(t){
+        var data = null;
+        try{ data = t ? JSON.parse(t) : null; }catch(e){ data = null; }
+        if(!r.ok){
+          var msg = (data && (data.message || data.msg || data.error_description)) || 'Request failed.';
+          var err = new Error(msg);
+          err.status = r.status;
+          throw err;
+        }
+        return data;
+      });
+    });
+  }
+  function fail(e){
+    return {ok:false, status:e && e.status, error: e && e.message ? e.message : 'Request failed.'};
+  }
+
+  function apiGet(action){
+    if(action !== 'list') return Promise.resolve({ok:false});
+    return Promise.all([
+      sb('GET', '/rest/v1/bb_languages?status=eq.approved&select=code,name,native&order=id'),
+      sb('GET', '/rest/v1/bb_contributions?status=eq.approved&select=id,animal_id,lang_code,kind,text,recording&order=id')
+    ]).then(function(r){ return {ok:true, languages:r[0], contributions:r[1]}; }).catch(fail);
+  }
+
+  function apiPost(action, body){
+    var token = adminToken();
+    var q;
+    switch(action){
+      case 'addLanguage':
+        return sb('POST', '/rest/v1/rpc/submit_language', {body:{p_name:body.name, p_code:body.code || '', p_native:body.native || ''}})
+          .then(function(code){ return {ok:true, code:code}; }).catch(fail);
+      case 'addVariant':
+        return sb('POST', '/rest/v1/rpc/submit_contribution', {body:{p_animal_id:body.animalId, p_lang_code:body.langCode, p_kind:body.kind, p_text:body.text || '', p_recording:body.recording || ''}})
+          .then(function(id){ return {ok:true, id:id}; }).catch(fail);
+      case 'adminList':
+        return Promise.all([
+          sb('GET', '/rest/v1/bb_languages?status=eq.pending&select=id,code,name,native&order=id', {token:token}),
+          sb('GET', '/rest/v1/bb_contributions?status=eq.pending&select=id,animal_id,lang_code,kind,text,recording&order=id', {token:token})
+        ]).then(function(r){ return {ok:true, languages:r[0], contributions:r[1]}; }).catch(fail);
+      case 'approveLanguage':   q = ['PATCH', '/rest/v1/bb_languages?id=eq.' + encodeURIComponent(body.id), {status:'approved'}]; break;
+      case 'approveVariant':    q = ['PATCH', '/rest/v1/bb_contributions?id=eq.' + encodeURIComponent(body.id), {status:'approved'}]; break;
+      case 'rejectLanguage':    q = ['DELETE', '/rest/v1/bb_languages?id=eq.' + encodeURIComponent(body.id)]; break;
+      case 'rejectVariant':     q = ['DELETE', '/rest/v1/bb_contributions?id=eq.' + encodeURIComponent(body.id)]; break;
+      case 'resetAll':
+        return Promise.all([
+          sb('DELETE', '/rest/v1/bb_languages?id=gt.0', {token:token}),
+          sb('DELETE', '/rest/v1/bb_contributions?id=gt.0', {token:token})
+        ]).then(function(){ return {ok:true}; }).catch(fail);
+      default: return Promise.resolve({ok:false, error:'Unknown action.'});
+    }
+    return sb(q[0], q[1], {token:token, body:q[2], prefer:'return=minimal'})
+      .then(function(){ return {ok:true}; }).catch(fail);
+  }
+
+  function adminLogin(email, password){
+    return sb('POST', '/auth/v1/token?grant_type=password', {body:{email:email, password:password}})
+      .then(function(r){ return {ok:true, token:r.access_token}; }).catch(fail);
+  }
+
+  function deepClone(o){ return JSON.parse(JSON.stringify(o)); }
+
+  function loadState(){
+    var saved = null;
+    try{ saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null'); }catch(e){ saved = null; }
+    if(saved && saved.languages && saved.words){
+      state = saved;
+    } else {
+      state = { languages: deepClone(DEFAULT_LANGUAGES), words: buildDefaultWords() };
+    }
+  }
+  function persist(){
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+    catch(e){ showToast('Storage is full — export your contributions, then reset to free up space.'); }
+  }
+
+  function langByCode(code){
+    for(var i=0;i<state.languages.length;i++){ if(state.languages[i].code === code) return state.languages[i]; }
+    return null;
+  }
+  function animalById(id){
+    for(var i=0;i<ANIMALS.length;i++){ if(ANIMALS[i].id === id) return ANIMALS[i]; }
+    return null;
+  }
+  function entryFor(animalId, code){
+    if(!state.words[animalId]) state.words[animalId] = {};
+    if(!state.words[animalId][code]) state.words[animalId][code] = {words:[], sounds:[]};
+    return state.words[animalId][code];
+  }
+
+  // ---------- Speech ----------
+  var voices = [];
+  function refreshVoices(){ voices = ('speechSynthesis' in window) ? window.speechSynthesis.getVoices() : []; }
+  if('speechSynthesis' in window){
+    refreshVoices();
+    window.speechSynthesis.onvoiceschanged = function(){
+      refreshVoices();
+      if(currentOpenAnimalId) openAnimalPanel(currentOpenAnimalId);
+    };
+  }
+  function hasVoiceFor(code){
+    if(!code) return false;
+    var base = code.split('-')[0];
+    for(var i=0;i<voices.length;i++){
+      if(voices[i].lang === code || voices[i].lang.split('-')[0] === base) return true;
+    }
+    return false;
+  }
+  function speakText(text, code, btn){
+    if(!('speechSynthesis' in window)){
+      showToast("This device/browser can't read text aloud — the words are still shown above.");
+      return;
+    }
+    window.speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance(text);
+    if(code){
+      u.lang = code;
+      var base = code.split('-')[0];
+      var match = null;
+      for(var i=0;i<voices.length;i++){ if(voices[i].lang === code){ match = voices[i]; break; } }
+      if(!match){ for(var j=0;j<voices.length;j++){ if(voices[j].lang.split('-')[0] === base){ match = voices[j]; break; } } }
+      if(match) u.voice = match;
+    }
+    if(btn){
+      btn.classList.add('speaking');
+      u.onend = function(){ btn.classList.remove('speaking'); };
+      u.onerror = function(){ btn.classList.remove('speaking'); };
+    }
+    window.speechSynthesis.speak(u);
+  }
+  function playVariant(variant, code, btn, langName){
+    if(variant.recording){
+      var audio = new Audio(variant.recording);
+      if(btn){ btn.classList.add('speaking'); audio.onended = function(){ btn.classList.remove('speaking'); }; }
+      audio.play();
+      return;
+    }
+    if(!hasVoiceFor(code)){
+      showToast('No ' + (langName || 'matching') + ' voice found on this device for text-to-speech — try recording it instead.');
+      return;
+    }
+    if(variant.speak || variant.text) speakText(variant.speak || variant.text, code, btn);
+  }
+
+  // ---------- Toast ----------
+  var toastTimer = null;
+  function showToast(msg){
+    var t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ t.classList.remove('show'); }, 2800);
+  }
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  // ---------- Rendering: grid ----------
+  function renderStats(){
+    document.getElementById('statCount').textContent = ANIMALS.length + ' animals · ' + state.languages.length + ' languages';
+    document.getElementById('gridCount').textContent = ANIMALS.length + ' animals to explore';
+  }
+
+  function renderGrid(){
+    var grid = document.getElementById('animalGrid');
+    grid.innerHTML = '';
+    ANIMALS.forEach(function(a){
+      var entries = state.words[a.id] || {};
+      var known = 0;
+      state.languages.forEach(function(l){ var e = entries[l.code]; if(e && (e.words.length || e.sounds.length)) known++; });
+      var card = document.createElement('button');
+      card.className = 'card';
+      card.setAttribute('aria-label', 'Open ' + a.label + ' in ' + known + ' languages');
+      card.innerHTML = '<span class="emoji">' + a.emoji + '</span>' +
+        '<span class="label">' + a.label + '</span>' +
+        '<span class="avail">' + known + ' / ' + state.languages.length + ' languages</span>';
+      card.addEventListener('click', function(){ openAnimalPanel(a.id); });
+      grid.appendChild(card);
+    });
+  }
+
+  // ---------- Rendering: animal passport ----------
+  function pillMarkup(animalId, code, kind, variant, idx, voiceOk){
+    var playIcon = variant.recording ? '▶' : '🔊';
+    var label = variant.text ? escapeHtml(variant.text) : '(recording)';
+    var muted = (!variant.recording && !voiceOk) ? ' no-voice' : '';
+    var tag = variant.pending ? '<span class="pill-tag pending">Pending review</span>' : (variant.source==='community' ? '<span class="pill-tag">Added</span>' : '');
+    return '<button type="button" class="pill'+muted+'" data-play="'+animalId+'|'+code+'|'+kind+'|'+idx+'" aria-label="Play">' +
+      '<span class="pill-icon">'+playIcon+'</span>' +
+      '<span class="pill-text">'+label+'</span>' +
+      (variant.recording ? '<span class="pill-mic" title="Recorded audio">🎙</span>' : '') +
+      tag +
+      '</button>';
+  }
+
+  function variantGroupMarkup(animalId, code, kind, list, voiceOk, opts){
+    opts = opts || {};
+    var pills = list.map(function(v, i){ return pillMarkup(animalId, code, kind, v, i, voiceOk); }).join('');
+    var addPill = opts.allowAdd === false ? '' : '<button type="button" class="pill add-pill" data-add="'+animalId+'|'+code+'|'+kind+'">+ Add</button>';
+    return '<div class="variant-group'+(opts.tinted ? ' sound-group' : '')+'">' +
+      '<div class="pill-row">' + pills + addPill +
+      '</div></div>';
+  }
+
+  function langTileMarkup(animalId, l){
+    var entry = entryFor(animalId, l.code);
+    var voiceOk = hasVoiceFor(l.code);
+    return '<div class="lang-tile" data-code="'+l.code+'">' +
+      '<div class="lang-tile-top">' +
+        '<div class="lang-info">' +
+          '<span class="lang-name-big">'+escapeHtml(l.name)+'</span>' +
+          (l.native ? '<span class="lang-native">'+escapeHtml(l.native)+'</span>' : '') +
+          (voiceOk ? '' : '<span class="voice-note">No text-to-speech voice on this device — try recording instead</span>') +
+        '</div>' +
+        '<div class="word-slot">' + variantGroupMarkup(animalId, l.code, 'words', entry.words, voiceOk, {allowAdd:false}) + '</div>' +
+      '</div>' +
+      variantGroupMarkup(animalId, l.code, 'sounds', entry.sounds, voiceOk, {tinted:true}) +
+      '</div>';
+  }
+
+  function openAnimalPanel(animalId){
+    currentOpenAnimalId = animalId;
+    var animal = animalById(animalId);
+    document.getElementById('panelEmoji').textContent = animal.emoji;
+    document.getElementById('panelTitle').textContent = animal.label;
+    var body = document.getElementById('panelBody');
+    body.innerHTML = '';
+
+    var langs = state.languages.slice().sort(function(a, b){
+      return (hasVoiceFor(a.code) ? 0 : 1) - (hasVoiceFor(b.code) ? 0 : 1);
+    });
+    var gridEl = document.createElement('div');
+    gridEl.className = 'lang-grid';
+    gridEl.innerHTML = langs.map(function(l){ return langTileMarkup(animalId, l); }).join('');
+    body.appendChild(gridEl);
+    document.getElementById('scrim').classList.add('open');
+  }
+
+  function closeAnimalPanel(){
+    currentOpenAnimalId = null;
+    document.getElementById('scrim').classList.remove('open');
+    window.speechSynthesis && window.speechSynthesis.cancel();
+  }
+
+  document.getElementById('panelBody').addEventListener('click', function(e){
+    var playBtn = e.target.closest('[data-play]');
+    if(playBtn){
+      var pp = playBtn.dataset.play.split('|');
+      var v = state.words[pp[0]][pp[1]][pp[2]][+pp[3]];
+      var lang = langByCode(pp[1]);
+      playVariant(v, pp[1], playBtn, lang ? lang.name : '');
+      return;
+    }
+    var addBtn = e.target.closest('[data-add]');
+    if(addBtn){
+      var ap = addBtn.dataset.add.split('|');
+      openVariantEditor(ap[0], ap[1], ap[2]);
+      return;
+    }
+  });
+
+  document.getElementById('closePanel').addEventListener('click', closeAnimalPanel);
+  document.getElementById('scrim').addEventListener('click', function(e){ if(e.target.id === 'scrim') closeAnimalPanel(); });
+
+  // ---------- Variant editor (add / edit / record) ----------
+  var scrimVariant = document.getElementById('scrimVariant');
+  var variantCtx = null; // {animalId, code, kind, idx}
+  var pendingRecording = null;
+
+  function openVariantEditor(animalId, code, kind){
+    variantCtx = {animalId:animalId, code:code, kind:kind};
+    var animal = animalById(animalId);
+    var lang = langByCode(code);
+    var allowRecording = kind === 'sounds';
+    document.getElementById('variantTitle').textContent = 'Add a new ' + (kind === 'words' ? 'word' : 'sound');
+    document.getElementById('variantSubtitle').textContent = animal.label + ' · ' + lang.name;
+    document.getElementById('variantText').value = '';
+    pendingRecording = null;
+    updateRecPreview();
+    resetRecButton();
+    document.getElementById('recBox').style.display = allowRecording ? '' : 'none';
+    scrimVariant.classList.add('open');
+  }
+  function closeVariantEditor(){
+    stopRecordingIfActive();
+    scrimVariant.classList.remove('open');
+  }
+  function updateRecPreview(){
+    var box = document.getElementById('recPreview');
+    var audio = document.getElementById('recAudio');
+    if(pendingRecording){ audio.src = pendingRecording; box.classList.add('show'); }
+    else { audio.removeAttribute('src'); box.classList.remove('show'); }
+  }
+
+  document.getElementById('closeVariant').addEventListener('click', closeVariantEditor);
+  document.getElementById('cancelVariant').addEventListener('click', closeVariantEditor);
+  scrimVariant.addEventListener('click', function(e){ if(e.target.id === 'scrimVariant') closeVariantEditor(); });
+
+  document.getElementById('recClear').addEventListener('click', function(){ pendingRecording = null; updateRecPreview(); });
+
+  function saveVariantLocallyOnly(text, recording){
+    var entry = entryFor(variantCtx.animalId, variantCtx.code);
+    entry[variantCtx.kind].push({text: text || undefined, speak: text || undefined, recording: recording || undefined, source: 'community'});
+    persist();
+    renderGrid();
+    openAnimalPanel(variantCtx.animalId);
+    scrimVariant.classList.remove('open');
+    showToast("Saved to this browser only — couldn't reach the shared server.");
+  }
+
+  document.getElementById('saveVariant').addEventListener('click', function(){
+    var text = document.getElementById('variantText').value.trim();
+    var recording = variantCtx.kind === 'sounds' ? pendingRecording : null;
+    if(!text && !recording){ showToast('Add some text or record audio first.'); return; }
+    apiPost('addVariant', {animalId:variantCtx.animalId, langCode:variantCtx.code, kind:variantCtx.kind, text:text, recording: recording || ''})
+      .then(function(res){
+        if(res && res.ok){
+          var entry = entryFor(variantCtx.animalId, variantCtx.code);
+          entry[variantCtx.kind].push({text: text || undefined, speak: text || undefined, recording: recording || undefined, source: 'community', pending: true, serverId: res.id});
+          renderGrid();
+          openAnimalPanel(variantCtx.animalId);
+          scrimVariant.classList.remove('open');
+          showToast('Submitted — this will show for everyone once approved.');
+        } else {
+          saveVariantLocallyOnly(text, recording);
+        }
+      })
+      .catch(function(){ saveVariantLocallyOnly(text, recording); });
+  });
+
+  // ---------- Recording ----------
+  var rec = { recorder:null, stream:null, chunks:[], startedAt:0, timerId:null };
+  var REC_MAX_MS = 6000;
+
+  function resetRecButton(){
+    document.getElementById('recBtn').classList.remove('recording');
+    document.getElementById('recBtnLabel').textContent = '🎙 Record (up to 6s)';
+    document.getElementById('recTime').textContent = '';
+  }
+
+  function stopRecordingIfActive(){
+    if(rec.recorder && rec.recorder.state !== 'inactive') rec.recorder.stop();
+    if(rec.timerId){ clearInterval(rec.timerId); rec.timerId = null; }
+  }
+
+  document.getElementById('recBtn').addEventListener('click', function(){
+    if(rec.recorder && rec.recorder.state === 'recording'){ rec.recorder.stop(); return; }
+    if(!navigator.mediaDevices || !window.MediaRecorder){
+      showToast("Recording isn't supported in this browser — you can still type the word.");
+      return;
+    }
+    navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
+      rec.stream = stream;
+      rec.chunks = [];
+      var mimeCandidates = ['audio/webm;codecs=opus','audio/webm','audio/mp4'];
+      var mime = mimeCandidates.filter(function(m){ return window.MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(m); })[0];
+      rec.recorder = mime ? new MediaRecorder(stream, {mimeType:mime}) : new MediaRecorder(stream);
+      rec.recorder.ondataavailable = function(e){ if(e.data && e.data.size > 0) rec.chunks.push(e.data); };
+      rec.recorder.onstop = function(){
+        var blob = new Blob(rec.chunks, {type: rec.recorder.mimeType || 'audio/webm'});
+        rec.stream.getTracks().forEach(function(t){ t.stop(); });
+        if(rec.timerId){ clearInterval(rec.timerId); rec.timerId = null; }
+        resetRecButton();
+        var reader = new FileReader();
+        reader.onload = function(){ pendingRecording = reader.result; updateRecPreview(); };
+        reader.readAsDataURL(blob);
+      };
+      rec.recorder.start();
+      rec.startedAt = Date.now();
+      document.getElementById('recBtn').classList.add('recording');
+      rec.timerId = setInterval(function(){
+        var elapsed = Date.now() - rec.startedAt;
+        var secs = (elapsed/1000).toFixed(1);
+        document.getElementById('recBtnLabel').textContent = '⏹ Stop';
+        document.getElementById('recTime').textContent = secs + 's';
+        if(elapsed >= REC_MAX_MS) rec.recorder.stop();
+      }, 100);
+    }).catch(function(){
+      showToast('Microphone access was blocked or unavailable.');
+    });
+  });
+
+  // ---------- Add language modal ----------
+  var scrimAdd = document.getElementById('scrimAdd');
+  function openAddLangModal(){
+    var dl = document.getElementById('langSuggestions');
+    dl.innerHTML = LANG_SUGGESTIONS.map(function(s){ return '<option value="'+s.name+'">'; }).join('');
+    document.getElementById('langNameInput').value = '';
+    document.getElementById('langCodeInput').value = '';
+    var table = document.getElementById('addTable');
+    table.innerHTML = '<div class="add-table-head"><span>Animal</span><span>Word</span><span>Sound</span></div>' +
+      ANIMALS.map(function(a){
+        return '<div class="add-table-row">' +
+          '<span class="a-label">'+a.emoji+' '+a.label+'</span>' +
+          '<input type="text" data-word="'+a.id+'" placeholder="e.g. '+a.label.toLowerCase()+'">' +
+          '<input type="text" data-sound="'+a.id+'" placeholder="e.g. woof woof">' +
+          '</div>';
+      }).join('');
+    scrimAdd.classList.add('open');
+  }
+  function closeAddLangModal(){ scrimAdd.classList.remove('open'); }
+
+  document.getElementById('openAddLang').addEventListener('click', openAddLangModal);
+  document.getElementById('closeAdd').addEventListener('click', closeAddLangModal);
+  document.getElementById('cancelAddLang').addEventListener('click', closeAddLangModal);
+  scrimAdd.addEventListener('click', function(e){ if(e.target.id === 'scrimAdd') closeAddLangModal(); });
+
+  document.getElementById('langNameInput').addEventListener('input', function(){
+    var val = this.value;
+    var match = LANG_SUGGESTIONS.filter(function(s){ return s.name.toLowerCase() === val.toLowerCase(); })[0];
+    if(match) document.getElementById('langCodeInput').value = match.code;
+  });
+
+  function collectAddLangEntries(){
+    var entries = [];
+    document.querySelectorAll('#addTable .add-table-row').forEach(function(r){
+      var wInput = r.querySelector('[data-word]');
+      var sInput = r.querySelector('[data-sound]');
+      if(!wInput) return;
+      entries.push({animalId: wInput.dataset.word, w: wInput.value.trim(), s: sInput.value.trim()});
+    });
+    return entries;
+  }
+
+  function saveLanguageLocallyOnly(name, code, entries){
+    var finalCode = code || ('x-' + name.toLowerCase().replace(/[^a-z]/g,'').slice(0,8));
+    if(langByCode(finalCode)){ showToast('That language code is already in the list.'); return; }
+    state.languages.push({code:finalCode, name:name, native:''});
+    entries.forEach(function(e){
+      var entry = entryFor(e.animalId, finalCode);
+      if(e.w) entry.words.push({text:e.w, speak:e.w, source:'community'});
+      if(e.s) entry.sounds.push({text:e.s, speak:e.s, source:'community'});
+    });
+    persist();
+    renderStats();
+    renderGrid();
+    closeAddLangModal();
+    showToast(name + " added to this browser only — couldn't reach the shared server.");
+  }
+
+  document.getElementById('saveAddLang').addEventListener('click', function(){
+    var name = document.getElementById('langNameInput').value.trim();
+    if(!name){ showToast('Give the language a name first.'); return; }
+    var code = document.getElementById('langCodeInput').value.trim();
+    if(code && langByCode(code)){ showToast('That language code is already in the list.'); return; }
+    var entries = collectAddLangEntries();
+    apiPost('addLanguage', {name:name, code:code, native:''}).then(function(res){
+      if(!res || !res.ok){ saveLanguageLocallyOnly(name, code, entries); return; }
+      var finalCode = res.code;
+      state.languages.push({code:finalCode, name:name, native:''});
+      var jobs = [];
+      entries.forEach(function(e){
+        if(e.w) jobs.push(apiPost('addVariant', {animalId:e.animalId, langCode:finalCode, kind:'words', text:e.w, recording:''}).then(function(r2){
+          if(r2 && r2.ok) entryFor(e.animalId, finalCode).words.push({text:e.w, speak:e.w, source:'community', pending:true, serverId:r2.id});
+        }));
+        if(e.s) jobs.push(apiPost('addVariant', {animalId:e.animalId, langCode:finalCode, kind:'sounds', text:e.s, recording:''}).then(function(r2){
+          if(r2 && r2.ok) entryFor(e.animalId, finalCode).sounds.push({text:e.s, speak:e.s, source:'community', pending:true, serverId:r2.id});
+        }));
+      });
+      Promise.all(jobs).then(function(){
+        renderStats();
+        renderGrid();
+        closeAddLangModal();
+        showToast(name + ' submitted — this will show for everyone once approved.');
+      });
+    }).catch(function(){ saveLanguageLocallyOnly(name, code, entries); });
+  });
+
+  // ---------- Export / Import ----------
+  document.getElementById('openExport').addEventListener('click', function(){
+    var blob = new Blob([JSON.stringify(state, null, 2)], {type:'application/json'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = 'animal-language-contributions.json';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast('Downloaded — share this file to combine contributions from another device.');
+  });
+
+  var importFile = document.getElementById('importFile');
+  document.getElementById('openImport').addEventListener('click', function(){ importFile.click(); });
+  importFile.addEventListener('change', function(){
+    var file = importFile.files[0];
+    if(!file) return;
+    var reader = new FileReader();
+    reader.onload = function(){
+      try{
+        var incoming = JSON.parse(reader.result);
+        if(!incoming.languages || !incoming.words) throw new Error('bad shape');
+        incoming.languages.forEach(function(l){ if(!langByCode(l.code)) state.languages.push(l); });
+        Object.keys(incoming.words).forEach(function(animalId){
+          if(!state.words[animalId]) state.words[animalId] = {};
+          Object.keys(incoming.words[animalId]).forEach(function(code){
+            state.words[animalId][code] = incoming.words[animalId][code];
+          });
+        });
+        persist();
+        renderStats();
+        renderGrid();
+        showToast('Contributions merged in.');
+      }catch(e){
+        showToast("That file didn't look like a Animal Language export.");
+      }
+      importFile.value = '';
+    };
+    reader.readAsText(file);
+  });
+
+  document.getElementById('resetDefaults').addEventListener('click', function(){
+    if(!window.confirm("Remove every contribution — including everyone's approved submissions on the shared server — and restore the original 10 animals × 12 languages? This cannot be undone.")) return;
+    apiPost('resetAll', {}).catch(function(){}).then(function(){
+      localStorage.removeItem(STORAGE_KEY);
+      loadState();
+      renderStats();
+      renderGrid();
+      closeAddLangModal();
+      closeAnimalPanel();
+      showToast('Restored to defaults.');
+    });
+  });
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){ closeAnimalPanel(); closeAddLangModal(); closeVariantEditor(); document.getElementById('scrimPending').classList.remove('open'); }
+  });
+
+  // ---------- Shared server sync ----------
+  function syncFromServer(){
+    apiGet('list').then(function(res){
+      if(!res || !res.ok) return;
+      var changed = false;
+      (res.languages || []).forEach(function(l){
+        if(!langByCode(l.code)){ state.languages.push({code:l.code, name:l.name, native:l.native || ''}); changed = true; }
+      });
+      (res.contributions || []).forEach(function(c){
+        var entry = entryFor(c.animal_id, c.lang_code);
+        var list = entry[c.kind];
+        var already = list.some(function(v){ return v.serverId === c.id; });
+        if(!already){
+          list.push({text: c.text || undefined, speak: c.text || undefined, recording: c.recording || undefined, source:'community', serverId: c.id});
+          changed = true;
+        }
+      });
+      if(changed){
+        renderStats();
+        renderGrid();
+        if(currentOpenAnimalId) openAnimalPanel(currentOpenAnimalId);
+      }
+    }).catch(function(){ /* offline, or config.js not filled in yet — carry on with local data */ });
+  }
+
+  // ---------- Admin gating ----------
+  function updateAdminVisibility(){
+    document.getElementById('adminControls').style.display = isAdmin ? 'flex' : 'none';
+  }
+  function setAdminUrlFlag(on){
+    var url = new URL(location.href);
+    if(on) url.searchParams.set('admin', '1'); else url.searchParams.delete('admin');
+    history.replaceState(null, '', url);
+  }
+  function turnOnAdmin(){
+    if(!backendReady()){ showToast('Admin tools need the shared database — fill in config.js first.'); return; }
+    var proceed = adminToken()
+      ? Promise.resolve(true)
+      : (function(){
+          var email = window.prompt('Admin email:');
+          if(!email) return Promise.resolve(false);
+          var pw = window.prompt('Admin password:');
+          if(!pw) return Promise.resolve(false);
+          return adminLogin(email.trim(), pw).then(function(res){
+            if(!res.ok){ showToast(res.error || 'Sign-in failed.'); return false; }
+            try{ sessionStorage.setItem(ADMIN_TOKEN_KEY, res.token); }catch(e){}
+            return true;
+          });
+        })();
+    proceed.then(function(ok){
+      if(!ok) return;
+      return apiPost('adminList', {}).then(function(res){
+        if(res && res.ok){
+          isAdmin = true;
+          setAdminUrlFlag(true);
+          updateAdminVisibility();
+        } else {
+          dropAdminSession();
+          showToast((res && res.error) ? res.error : 'Could not verify admin access.');
+        }
+      });
+    });
+  }
+  function dropAdminSession(){
+    try{ sessionStorage.removeItem(ADMIN_TOKEN_KEY); }catch(e){}
+    isAdmin = false;
+    setAdminUrlFlag(false);
+    updateAdminVisibility();
+  }
+  function turnOffAdmin(){ dropAdminSession(); }
+  document.getElementById('adminToggle').addEventListener('click', function(){
+    if(isAdmin) turnOffAdmin(); else turnOnAdmin();
+  });
+
+  // ---------- Pending review (admin) ----------
+  var scrimPending = document.getElementById('scrimPending');
+  function openPendingModal(){
+    apiPost('adminList', {}).then(function(res){
+      if(!res || !res.ok){
+        if(res && (res.status === 401 || res.status === 403)){ dropAdminSession(); showToast('Admin session expired — sign in again.'); }
+        else showToast('Could not load pending items.');
+        return;
+      }
+      renderPendingList(res.languages || [], res.contributions || []);
+      scrimPending.classList.add('open');
+    }).catch(function(){ showToast("Couldn't reach the shared server."); });
+  }
+  function renderPendingList(langs, contribs){
+    var body = document.getElementById('pendingBody');
+    if(!langs.length && !contribs.length){
+      body.innerHTML = '<p style="padding:20px 22px; color:var(--ink-soft);">Nothing waiting for review.</p>';
+      return;
+    }
+    var html = '';
+    if(langs.length){
+      html += '<div class="lang-group-label">Pending languages</div>';
+      html += langs.map(function(l){
+        return '<div class="pending-row">' +
+          '<div class="pending-info"><strong>'+escapeHtml(l.name)+'</strong>' + (l.native ? ' · '+escapeHtml(l.native) : '') + ' <span class="pending-code">('+escapeHtml(l.code)+')</span></div>' +
+          '<div class="pending-actions">' +
+            '<button type="button" class="btn btn-accent" data-approve-lang="'+l.id+'">Approve</button>' +
+            '<button type="button" class="btn btn-danger" data-reject-lang="'+l.id+'">Reject</button>' +
+          '</div></div>';
+      }).join('');
+    }
+    if(contribs.length){
+      html += '<div class="lang-group-label">Pending words &amp; sounds</div>';
+      html += contribs.map(function(c){
+        var animal = animalById(c.animal_id);
+        var lang = langByCode(c.lang_code);
+        return '<div class="pending-row">' +
+          '<div class="pending-info">' +
+            (animal ? animal.emoji+' '+animal.label : escapeHtml(c.animal_id)) + ' · ' + (lang ? escapeHtml(lang.name) : escapeHtml(c.lang_code)) + ' · ' + c.kind.slice(0, -1) +
+            (c.text ? ': "'+escapeHtml(c.text)+'"' : '') +
+            (c.recording ? ' <audio controls src="'+escapeHtml(c.recording)+'" style="height:26px;vertical-align:middle;"></audio>' : '') +
+          '</div>' +
+          '<div class="pending-actions">' +
+            '<button type="button" class="btn btn-accent" data-approve-variant="'+c.id+'">Approve</button>' +
+            '<button type="button" class="btn btn-danger" data-reject-variant="'+c.id+'">Reject</button>' +
+          '</div></div>';
+      }).join('');
+    }
+    body.innerHTML = html;
+  }
+  document.getElementById('openPending').addEventListener('click', openPendingModal);
+  document.getElementById('closePending').addEventListener('click', function(){ scrimPending.classList.remove('open'); });
+  scrimPending.addEventListener('click', function(e){ if(e.target.id === 'scrimPending') scrimPending.classList.remove('open'); });
+
+  document.getElementById('pendingBody').addEventListener('click', function(e){
+    var approveLang = e.target.closest('[data-approve-lang]');
+    var rejectLang = e.target.closest('[data-reject-lang]');
+    var approveVar = e.target.closest('[data-approve-variant]');
+    var rejectVar = e.target.closest('[data-reject-variant]');
+    if(approveLang){ apiPost('approveLanguage', {id:approveLang.dataset.approveLang}).then(function(r){ if(!r.ok){ showToast(r.error || 'Could not approve.'); return; } showToast('Approved.'); openPendingModal(); syncFromServer(); }); return; }
+    if(rejectLang){ apiPost('rejectLanguage', {id:rejectLang.dataset.rejectLang}).then(function(r){ if(!r.ok){ showToast(r.error || 'Could not reject.'); return; } showToast('Rejected.'); openPendingModal(); }); return; }
+    if(approveVar){ apiPost('approveVariant', {id:approveVar.dataset.approveVariant}).then(function(r){ if(!r.ok){ showToast(r.error || 'Could not approve.'); return; } showToast('Approved.'); openPendingModal(); syncFromServer(); }); return; }
+    if(rejectVar){ apiPost('rejectVariant', {id:rejectVar.dataset.rejectVariant}).then(function(r){ if(!r.ok){ showToast(r.error || 'Could not reject.'); return; } showToast('Rejected.'); openPendingModal(); }); return; }
+  });
+
+  // ---------- Init ----------
+  loadState();
+  renderStats();
+  renderGrid();
+  updateAdminVisibility();
+  syncFromServer();
+  if(adminUrlHint) turnOnAdmin();
+})();
+</script>
+</body>
+</html>
