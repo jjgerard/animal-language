@@ -357,21 +357,21 @@
   // (lower-confidence colloquial forms, flagged so they read as informal rather than settled fact).
   var WORDS_RAW = {
     dog: {
-      'en-GB':{w:['dog'], s:['woof woof', 'bow-wow', 'bark']},
+      'en-GB':{w:'dog', s:'woof woof'},
       'cy-GB':{w:'ci', s:'wff wff', c:true},
       'pl-PL':{w:'pies', s:'hau hau'},
       'ur-PK':{w:'کتا (kutta)', ws:'کتا', s:'بھو بھو (bhow bhow)', ss:'بھو بھو', c:true},
       'pa-IN':{w:'ਕੁੱਤਾ (kutta)', ws:'ਕੁੱਤਾ', s:'ਭੌਂ ਭੌਂ (bhow bhow)', ss:'ਭੌਂ ਭੌਂ', c:true},
       'ar-SA':{w:'كلب (kalb)', ws:'كلب', s:'هاو هاو (haw haw)', ss:'هاو هاو'},
-      'fr-FR':{w:'chien', s:['ouaf ouaf', 'wouf wouf']},
+      'fr-FR':{w:'chien', s:'ouaf ouaf'},
       'es-ES':{w:'perro', s:'guau guau'},
-      'de-DE':{w:'Hund', s:['wau wau', 'hau hau']},
+      'de-DE':{w:'Hund', s:'wau wau'},
       'it-IT':{w:'cane', s:'bau bau'},
       'ja-JP':{w:'犬 (inu)', ws:'犬', s:'わんわん (wan wan)', ss:'わんわん'},
       'zh-CN':{w:'狗 (gǒu)', ws:'狗', s:'汪汪 (wāng wāng)', ss:'汪汪'}
     },
     cat: {
-      'en-GB':{w:'cat', s:['meow meow', 'miaow miaow']},
+      'en-GB':{w:'cat', s:'miaow miaow'},
       'cy-GB':{w:'cath', s:'miaw', c:true},
       'pl-PL':{w:'kot', s:'miau miau'},
       'ur-PK':{w:'بلی (billi)', ws:'بلی', s:'میاؤں (miyaon)', ss:'میاؤں', c:true},
@@ -427,7 +427,7 @@
       'zh-CN':{w:'猪 (zhū)', ws:'猪', s:'哼哼 (hēng hēng)', ss:'哼哼'}
     },
     rooster: {
-      'en-GB':{w:['rooster', 'cockerel'], s:'cock-a-doodle-doo'},
+      'en-GB':{w:'rooster', s:'cock-a-doodle-doo'},
       'cy-GB':{w:'ceiliog', s:'cocadwdl-dŵ', sc:true},
       'pl-PL':{w:'kogut', s:'kukuryku'},
       'ur-PK':{w:'مرغا (murga)', ws:'مرغا', s:'کُکڑوں کوں (kukroon koon)', ss:'کُکڑوں کوں', sc:true},
@@ -469,7 +469,7 @@
       'zh-CN':{w:'青蛙 (qīngwā)', ws:'青蛙', s:'呱呱 (guā guā)', ss:'呱呱'}
     },
     owl: {
-      'en-GB':{w:'owl', s:'hoo'},
+      'en-GB':{w:'owl', s:'hoo hoo'},
       'cy-GB':{w:'tylluan', s:'hŵ hŵ', sc:true},
       'pl-PL':{w:'sowa', s:'hu hu'},
       'ur-PK':{w:'الو (ulloo)', ws:'الو', s:'ہو ہو (hoo hoo)', ss:'ہو ہو', sc:true},
@@ -477,7 +477,7 @@
       'ar-SA':{w:'بومة (booma)', ws:'بومة', s:'بوو بوو (boo boo)', ss:'بوو بوو', c:true},
       'fr-FR':{w:'hibou', s:'hou hou'},
       'es-ES':{w:'búho', s:'uu uu'},
-      'de-DE':{w:'Eule', s:'huhu'},
+      'de-DE':{w:'Eule', s:'huhu', sc:true},
       'it-IT':{w:'gufo', s:'gu gu'},
       'ja-JP':{w:'フクロウ (fukurou)', s:'ホーホー (hō hō)', ss:'ホーホー'},
       'zh-CN':{w:'猫头鹰 (māotóuyīng)', ws:'猫头鹰', s:'咕咕 (gū gū)', ss:'咕咕', c:true}
@@ -525,7 +525,7 @@
       'zh-CN':{w:'山羊 (shānyáng)', ws:'山羊', s:'咩咩 (miē miē)', ss:'咩咩'}
     },
     wolf: {
-      'en-GB':{w:'wolf', s:'awoo'},
+      'en-GB':{w:'wolf', s:'awooo'},
       'cy-GB':{w:'blaidd', s:'wwwww', sc:true},
       'pl-PL':{w:'wilk', s:'auuu'},
       'ur-PK':{w:'بھیڑیا (bheriya)', ws:'بھیڑیا', s:'اووو (awooo)', ss:'اووو', sc:true},
@@ -547,10 +547,10 @@
       'ar-SA':{w:'أسد (asad)', ws:'أسد', s:'زئير (za\'eer)', ss:'زئير', sc:true},
       'fr-FR':{w:'lion', s:'grrr'},
       'es-ES':{w:'león', s:'grrr'},
-      'de-DE':{w:'Löwe', s:'wroaar'},
+      'de-DE':{w:'Löwe', s:'grrr', sc:true},
       'it-IT':{w:'leone', s:'groar'},
       'ja-JP':{w:'ライオン (raion)', ws:'ライオン', s:'ガオー (gaō)', ss:'ガオー'},
-      'zh-CN':{w:'狮子 (shīzi)', ws:'狮子', s:'吼 (hǒu)', ss:'吼', sc:true}
+      'zh-CN':{w:'狮子 (shīzi)', ws:'狮子', s:'吼吼 (hǒu hǒu)', ss:'吼吼', sc:true}
     },
     monkey: {
       'en-GB':{w:'monkey', s:'ooh ooh ah ah'},
@@ -559,10 +559,10 @@
       'ur-PK':{w:'بندر (bandar)', ws:'بندر', s:'کھی کھی (khee khee)', ss:'کھی کھی', sc:true},
       'pa-IN':{w:'ਬਾਂਦਰ (baandar)', ws:'ਬਾਂਦਰ', s:'ਖੀ ਖੀ (khee khee)', ss:'ਖੀ ਖੀ', sc:true},
       'ar-SA':{w:'قرد (qird)', ws:'قرد', s:'أوو أوو (oo oo)', ss:'أوو أوو', sc:true},
-      'fr-FR':{w:'singe', s:'hou hou'},
+      'fr-FR':{w:'singe', s:'hou hou', sc:true},
       'es-ES':{w:'mono', s:'uh uh ah ah'},
       'de-DE':{w:'Affe', s:'u-u a-a'},
-      'it-IT':{w:'scimmia', s:'u u a a'},
+      'it-IT':{w:'scimmia', s:'u u a a', sc:true},
       'ja-JP':{w:'猿 (saru)', ws:'猿', s:'ウキウキ (uki uki)', ss:'ウキウキ'},
       'zh-CN':{w:'猴子 (hóuzi)', ws:'猴子', s:'吱吱 (zhī zhī)', ss:'吱吱'}
     },
@@ -574,7 +574,7 @@
       'pa-IN':{w:'ਚੂਹਾ (chooha)', ws:'ਚੂਹਾ', s:'ਚੀਂ ਚੀਂ (cheen cheen)', ss:'ਚੀਂ ਚੀਂ'},
       'ar-SA':{w:'فأر (fa\'r)', ws:'فأر', s:'سي سي (see see)', ss:'سي سي', sc:true},
       'fr-FR':{w:'souris', s:'couic couic'},
-      'es-ES':{w:'ratón', s:'iii iii'},
+      'es-ES':{w:'ratón', s:'iii iii', sc:true},
       'de-DE':{w:'Maus', s:'piep piep'},
       'it-IT':{w:'topo', s:'squit squit'},
       'ja-JP':{w:'ねずみ (nezumi)', ws:'ねずみ', s:'チューチュー (chū chū)', ss:'チューチュー'},
@@ -615,10 +615,10 @@
       'ur-PK':{w:'ہاتھی (haathi)', ws:'ہاتھی', s:'چنگھاڑ (chinghaar)', ss:'چنگھاڑ', sc:true},
       'pa-IN':{w:'ਹਾਥੀ (haathi)', ws:'ਹਾਥੀ', s:'ਚੰਘਿਆੜ (changhiaar)', ss:'ਚੰਘਿਆੜ', sc:true},
       'ar-SA':{w:'فيل (feel)', ws:'فيل', s:'نفير (nafeer)', ss:'نفير', sc:true},
-      'fr-FR':{w:'éléphant', s:'prrrt'},
-      'es-ES':{w:'elefante', s:'pruuu'},
+      'fr-FR':{w:'éléphant', s:'prrrt', sc:true},
+      'es-ES':{w:'elefante', s:'pruuu', sc:true},
       'de-DE':{w:'Elefant', s:'töröö'},
-      'it-IT':{w:'elefante', s:'puuu'},
+      'it-IT':{w:'elefante', s:'puuu', sc:true},
       'ja-JP':{w:'ゾウ (zō)', ws:'ゾウ', s:'パオーン (paōn)', ss:'パオーン'},
       'zh-CN':{w:'大象 (dàxiàng)', ws:'大象', s:'呜呜 (wū wū)', ss:'呜呜', sc:true}
     },
