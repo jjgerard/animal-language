@@ -571,8 +571,14 @@
     if(action !== 'list') return Promise.resolve({ok:false});
     return Promise.all([
       sb('GET', '/rest/v1/bb_languages?status=eq.approved&select=code,name,native&order=id'),
-      sb('GET', '/rest/v1/bb_contributions?status=eq.approved&select=id,animal_id,lang_code,kind,text,recording&order=id')
+      sb('GET', '/rest/v1/bb_contributions?status=eq.approved&select=id,animal_id,lang_code,kind,text,has_recording&order=id')
     ]).then(function(r){ return {ok:true, languages:r[0], contributions:r[1]}; }).catch(fail);
+  }
+
+  function fetchRecording(id){
+    return sb('GET', '/rest/v1/bb_contributions?id=eq.' + encodeURIComponent(id) + '&status=eq.approved&select=recording')
+      .then(function(rows){ return rows && rows[0] && rows[0].recording || null; })
+      .catch(function(){ return null; });
   }
 
   function apiPost(action, body){
@@ -684,7 +690,18 @@
     if(variant.recording){
       var audio = new Audio(variant.recording);
       if(btn){ btn.classList.add('speaking'); audio.onended = function(){ btn.classList.remove('speaking'); }; }
-      audio.play();
+      audio.play().catch(function(){ if(btn) btn.classList.remove('speaking'); });
+      return;
+    }
+    if(variant.hasRecording && variant.serverId){
+      // Recordings are big, so the list doesn't include them — fetch this one on first play.
+      if(btn) btn.classList.add('speaking');
+      fetchRecording(variant.serverId).then(function(data){
+        if(btn) btn.classList.remove('speaking');
+        if(!data){ showToast("Couldn't load that recording."); return; }
+        variant.recording = data;
+        playVariant(variant, code, btn, langName);
+      });
       return;
     }
     if(!hasVoiceFor(code)){
@@ -736,14 +753,15 @@
 
   // ---------- Rendering: animal passport ----------
   function pillMarkup(animalId, code, kind, variant, idx, voiceOk){
-    var playIcon = variant.recording ? '▶' : '🔊';
+    var hasRec = !!(variant.recording || variant.hasRecording);
+    var playIcon = hasRec ? '▶' : '🔊';
     var label = variant.text ? escapeHtml(variant.text) : '(recording)';
-    var muted = (!variant.recording && !voiceOk) ? ' no-voice' : '';
+    var muted = (!hasRec && !voiceOk) ? ' no-voice' : '';
     var tag = variant.pending ? '<span class="pill-tag pending">Pending review</span>' : (variant.source==='community' ? '<span class="pill-tag">Added</span>' : '');
     return '<button type="button" class="pill'+muted+'" data-play="'+animalId+'|'+code+'|'+kind+'|'+idx+'" aria-label="Play">' +
       '<span class="pill-icon">'+playIcon+'</span>' +
       '<span class="pill-text">'+label+'</span>' +
-      (variant.recording ? '<span class="pill-mic" title="Recorded audio">🎙</span>' : '') +
+      (hasRec ? '<span class="pill-mic" title="Recorded audio">🎙</span>' : '') +
       tag +
       '</button>';
   }
@@ -1091,7 +1109,7 @@
         var list = entry[c.kind];
         var already = list.some(function(v){ return v.serverId === c.id; });
         if(!already){
-          list.push({text: c.text || undefined, speak: c.text || undefined, recording: c.recording || undefined, source:'community', serverId: c.id});
+          list.push({text: c.text || undefined, speak: c.text || undefined, hasRecording: !!c.has_recording, source:'community', serverId: c.id});
           changed = true;
         }
       });

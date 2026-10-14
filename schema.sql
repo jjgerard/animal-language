@@ -31,6 +31,10 @@ create table if not exists public.bb_contributions (
   check (text is not null or recording is not null)
 );
 
+-- Lets the page list recordings without downloading them (fetched on play instead).
+alter table public.bb_contributions
+  add column if not exists has_recording boolean generated always as (recording is not null) stored;
+
 create index if not exists bb_languages_status_idx     on public.bb_languages (status);
 create index if not exists bb_contributions_status_idx on public.bb_contributions (status);
 

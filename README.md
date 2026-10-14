@@ -33,6 +33,7 @@ If `config.js` is left blank the page still works, but contributions only stay i
 
 ## Not done yet
 
-- Recordings are stored as base64 in the table and every approved one is
-  downloaded on page load. Moving them to Supabase Storage would be better.
+- Recordings live as base64 in the table. They are only fetched when played, but
+  Supabase Storage would be cleaner if there end up being many.
 - Export/Import still works on the browser's local copy only.
+- If you ran an earlier `schema.sql`, run it again: it adds the `has_recording` column.
