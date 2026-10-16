@@ -26,17 +26,23 @@ That Wikipedia article carries its own "needs more citations" banner, so a match
 - Cat: Wikipedia gives *miaow* (UK) and *meow* (US). The site uses *meow*.
 - Frog: Wikipedia gives *ribbit* for the US and *croak* for Britain. The site uses *ribbit ribbit*, the form children expect.
 
-## Not found in any reliable source (treat as unverified)
+## Sounds left blank on purpose
 
-- **Urdu and Punjabi**: Wikipedia has almost nothing, and the Ling App pages I found
-  ([Urdu](https://ling-app.com/blog/urdu-animal-sounds/),
+Sounds I could not back with a source were **removed**, not guessed. Those animals show the
+word only, ready for a native speaker to add (the "+ Add" buttons on the site, or send a list).
+
+- **Urdu and Punjabi**: only dog, cat and mouse have a sound. Wikipedia has almost nothing, and
+  the Ling App pages I found ([Urdu](https://ling-app.com/blog/urdu-animal-sounds/),
   [Punjabi](https://ling-app.com/blog/punjabi-onomatopoeia/)) are clearly machine-translated
-  and unreliable (for example, plural nouns given as the sound). The Urdu and Punjabi
-  sounds here come from knowledge of Hindi/Urdu/Punjabi children's usage and are flagged
-  "Community" in the app.
-- **Welsh** sounds for the newer animals, **Arabic** owl/chick/monkey/mouse/turkey, and the
-  French/Spanish/Italian/German monkey, mouse, goat, lion and turkey entries.
-- **Mouse** in every language: the sources found were blog lists that disagree.
+  and unreliable (for example, plural nouns given as the sound).
+- **Welsh**: kept dog, cat, cow, sheep, duck, pig, frog, rooster (Wikipedia, the forum thread
+  above, Omniglot), and lion and elephant *rhuo*
+  ([We Learn Welsh](https://welearnwelsh.com/words/welsh-word-rhuo-to-roar/)). The other ten
+  are blank.
+- **Arabic** (8 blank), **Chinese** (4), **French**, **German** (3 each), **Italian**, **Spanish**
+  (2 each) and **Japanese** (1): removed where neither Wikipedia's tables nor another source
+  confirmed the sound.
+- **Mouse**: the sources found were blog lists that disagree, so treat it as unverified.
 
-Anything flagged `sc:true` or `c:true` in `index.html` shows a "Community" tag.
-Please have a native speaker confirm those before relying on them.
+A few older entries flagged `c:true` in `index.html` (from the original site) still show a
+"Community" tag. Please have a native speaker confirm those.
