@@ -46,3 +46,13 @@ word only, ready for a native speaker to add (the "+ Add" buttons on the site, o
 
 A few older entries flagged `c:true` in `index.html` (from the original site) still show a
 "Community" tag. Please have a native speaker confirm those.
+
+## Pronunciation hints
+
+The small text under each animal name (for example *hooi-AH-den*) is a plain-English
+respelling that I wrote, using Wiktionary's IPA for the word as a check where it had one
+(about 190 of the 220 words). It is a rough guide for English speakers, not an
+authoritative transcription, and has **not** been checked by native speakers. Urdu and
+Punjabi are the least certain (several words had no IPA, and Punjabi tone changes the
+sound of some letters), and Mandarin tones are not shown. English words and the animal
+*sounds* have no hints. Respellings sit in the `r:` field of each word in `index.html`.
