@@ -900,6 +900,9 @@
   function langShownFor(animalId, l){
     var e = (state.words[animalId] || {})[l.code];
     if(!e || !(e.words.length || e.sounds.length)) return false;
+    // No voices at all (not loaded yet, or none installed): can't tell what is playable,
+    // so show everything rather than an empty page.
+    if(!voices.length) return true;
     return hasVoiceFor(l.code) || entryPlayable(e);
   }
   function langShownAnywhere(l){
