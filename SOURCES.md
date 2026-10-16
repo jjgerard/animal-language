@@ -15,7 +15,7 @@ other mammals, other animals). Sounds were compared against it for:
   horse *ji ji*, French frog *croa croa*, Italian pig *oink oink*, Polish turkey *gul gul*).
 - **Welsh**: only cat, cow, sheep and pig appear there, plus an informal
   [Say Something in Welsh forum thread](https://en.forum.saysomethingin.com/t/welsh-onomatopoeia/3224)
-  (dog *wff wff*, duck *cwac*, frog *crawc*). The forum author says his Welsh is rusty
+  (duck *cwac*, frog *crawc*; it also gave dog *wff wff*, which has since been removed as doubtful). The forum author says his Welsh is rusty
   and that not all of it is accurate.
 
 That Wikipedia article carries its own "needs more citations" banner, so a match is
@@ -35,7 +35,7 @@ word only, ready for a native speaker to add (the "+ Add" buttons on the site, o
   the Ling App pages I found ([Urdu](https://ling-app.com/blog/urdu-animal-sounds/),
   [Punjabi](https://ling-app.com/blog/punjabi-onomatopoeia/)) are clearly machine-translated
   and unreliable (for example, plural nouns given as the sound).
-- **Welsh**: kept dog, cat, cow, sheep, duck, pig, frog, rooster (Wikipedia, the forum thread
+- **Welsh**: kept cat, cow, sheep, duck, pig, frog, rooster (Wikipedia, the forum thread
   above, Omniglot), and lion and elephant *rhuo*
   ([We Learn Welsh](https://welearnwelsh.com/words/welsh-word-rhuo-to-roar/)). The other ten
   are blank.
