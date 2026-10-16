@@ -34,8 +34,14 @@ That Wikipedia article carries its own "needs more citations" banner, so a match
   and unreliable (for example, plural nouns given as the sound). The Urdu and Punjabi
   sounds here come from knowledge of Hindi/Urdu/Punjabi children's usage and are flagged
   "Community" in the app.
-- **Welsh** sounds for the newer animals, **Arabic** owl/chick/monkey/mouse/turkey, and the
-  French/Spanish/Italian/German monkey, mouse, goat, lion and turkey entries.
+- **Welsh**: sounds I could not source were removed instead of guessed (owl, chick, horse,
+  goat, wolf, monkey, bee, turkey). Those show the word only, ready for a Welsh speaker to
+  add. Kept: dog, cat, cow, sheep, duck, pig, frog (Wikipedia and the forum thread above),
+  rooster *cocadwdl-dŵ* (Omniglot), lion and elephant *rhuo*
+  ([We Learn Welsh](https://welearnwelsh.com/words/welsh-word-rhuo-to-roar/)), and mouse
+  *gwich* and snake *ssss*, which are flagged as uncertain.
+- **Arabic** owl, chick, monkey, mouse and turkey, and the French, Spanish, Italian and German
+  monkey, mouse, goat, lion and turkey entries.
 - **Mouse** in every language: the sources found were blog lists that disagree.
 
 Anything flagged `sc:true` or `c:true` in `index.html` shows a "Community" tag.
