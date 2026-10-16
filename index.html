@@ -817,13 +817,21 @@
       if(currentOpenAnimalId) openAnimalPanel(currentOpenAnimalId);
     };
   }
+  // Browsers report voice languages inconsistently: en-GB, en_GB (Android), EN-gb.
+  function normLang(l){ return String(l || '').replace(/_/g, '-').toLowerCase(); }
+  function voiceFor(code){
+    var want = normLang(code), base = want.split('-')[0];
+    var exact = null, partial = null;
+    for(var i=0;i<voices.length;i++){
+      var have = normLang(voices[i].lang);
+      if(have === want){ exact = voices[i]; break; }
+      if(!partial && have.split('-')[0] === base) partial = voices[i];
+    }
+    return exact || partial;
+  }
   function hasVoiceFor(code){
     if(!code) return false;
-    var base = code.split('-')[0];
-    for(var i=0;i<voices.length;i++){
-      if(voices[i].lang === code || voices[i].lang.split('-')[0] === base) return true;
-    }
-    return false;
+    return !!voiceFor(code);
   }
   function speakText(text, code, btn){
     if(!('speechSynthesis' in window)){
@@ -834,10 +842,7 @@
     var u = new SpeechSynthesisUtterance(text);
     if(code){
       u.lang = code;
-      var base = code.split('-')[0];
-      var match = null;
-      for(var i=0;i<voices.length;i++){ if(voices[i].lang === code){ match = voices[i]; break; } }
-      if(!match){ for(var j=0;j<voices.length;j++){ if(voices[j].lang.split('-')[0] === base){ match = voices[j]; break; } } }
+      var match = voiceFor(code);
       if(match) u.voice = match;
     }
     if(btn){
