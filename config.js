@@ -4,6 +4,6 @@
 // schema.sql grants), so it is safe to commit. NEVER put the service_role key here.
 // Leave these blank to run in local-only mode (contributions stay in this browser).
 window.BB_CONFIG = {
-  supabaseUrl: '',   // e.g. 'https://abcdefgh.supabase.co'
-  anonKey: ''        // the "anon public" key
+  supabaseUrl: 'https://conhxanuiaiidanynuqf.supabase.co',
+  anonKey: 'sb_publishable_rDI1TgfF6NGoE1NxaLHHGA_wDhMSBLB'
 };
