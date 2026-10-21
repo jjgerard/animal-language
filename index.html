@@ -123,7 +123,7 @@
 
   /* one row per language: name | word | sounds */
   .lang-grid{ display:flex; flex-direction:column; padding:4px 24px 12px; }
-  .lang-tile{ display:grid; grid-template-columns:minmax(100px,.8fr) 180px minmax(0,1.6fr); gap:10px 18px; align-items:center; padding:14px 0; border-top:1px solid var(--line); }
+  .lang-tile{ display:grid; grid-template-columns:minmax(90px,.7fr) minmax(190px,270px) minmax(0,1.6fr); gap:10px 18px; align-items:center; padding:14px 0; border-top:1px solid var(--line); }
   .lang-tile:first-child{ border-top:none; }
   .lang-tile-top{ display:contents; }
   .lang-info{ display:flex; flex-direction:column; }
@@ -146,6 +146,13 @@
   .pill.no-voice{ opacity:.45; }
   @keyframes pulse{ 0%,100%{ transform:scale(1);} 50%{ transform:scale(1.06);} }
   @media (prefers-reduced-motion: reduce){ .pill.speaking{ animation:none; } }
+  .pill-body{ display:flex; flex-direction:column; align-items:flex-start; line-height:1.15; }
+  .pill-sub{ display:flex; align-items:center; gap:6px; margin-top:2px; }
+  .word-slot .pill{ white-space:nowrap; }
+  .pill-guide{ font-size:12.5px; font-weight:600; color:var(--ink-soft); letter-spacing:.01em; }
+  .panel-key{ margin:0; padding:2px 24px 6px; font-size:12.5px; color:var(--ink-soft); }
+  .panel-key summary{ cursor:pointer; font-weight:700; }
+  .panel-key p{ margin:6px 0 0; line-height:1.5; }
   .pill-icon{ font-size:13px; opacity:.75; }
   .pill-mic{ font-size:11px; opacity:.7; }
   .pill-tag{ font-size:10px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; background:var(--community-bg); color:var(--community); border-radius:999px; padding:2px 7px; }
@@ -377,283 +384,283 @@
   var WORDS_RAW = {
     dog: {
       'en-GB':{w:'dog', s:'woof woof'},
-      'cy-GB':{w:'ci', c:true},
-      'pl-PL':{w:'pies', s:'hau hau'},
-      'ur-PK':{w:'کتا (kutta)', ws:'کتا', s:'بھو بھو (bhow bhow)', ss:'بھو بھو', c:true},
-      'pa-IN':{w:'ਕੁੱਤਾ (kutta)', ws:'ਕੁੱਤਾ', s:'ਭੌਂ ਭੌਂ (bhow bhow)', ss:'ਭੌਂ ਭੌਂ', c:true},
-      'ar-SA':{w:'كلب (kalb)', ws:'كلب', s:'هاو هاو (haw haw)', ss:'هاو هاو'},
-      'fr-FR':{w:'chien', s:'ouaf ouaf'},
-      'es-ES':{w:'perro', s:'guau guau'},
-      'de-DE':{w:'Hund', s:'wau wau'},
-      'it-IT':{w:'cane', s:'bau bau'},
-      'ja-JP':{w:'犬 (inu)', ws:'犬', s:'ワンワン (wan wan)', ss:'ワンワン'},
-      'zh-CN':{w:'狗 (gǒu)', ws:'狗', s:'汪汪 (wāng wāng)', ss:'汪汪'}
+      'cy-GB':{w:'ci', r:'kee', c:true},
+      'pl-PL':{w:'pies', r:'pyess', s:'hau hau'},
+      'ur-PK':{w:'کتا (kutta)', ws:'کتا', r:'KUT-taa', s:'بھو بھو (bhow bhow)', ss:'بھو بھو', c:true},
+      'pa-IN':{w:'ਕੁੱਤਾ (kutta)', ws:'ਕੁੱਤਾ', r:'KUT-taa', s:'ਭੌਂ ਭੌਂ (bhow bhow)', ss:'ਭੌਂ ਭੌਂ', c:true},
+      'ar-SA':{w:'كلب (kalb)', ws:'كلب', r:'kalb', s:'هاو هاو (haw haw)', ss:'هاو هاو'},
+      'fr-FR':{w:'chien', r:'shyeh(n)', s:'ouaf ouaf'},
+      'es-ES':{w:'perro', r:'PEH-rro', s:'guau guau'},
+      'de-DE':{w:'Hund', r:'hoont', s:'wau wau'},
+      'it-IT':{w:'cane', r:'KAH-neh', s:'bau bau'},
+      'ja-JP':{w:'犬 (inu)', ws:'犬', r:'EE-noo', s:'ワンワン (wan wan)', ss:'ワンワン'},
+      'zh-CN':{w:'狗 (gǒu)', ws:'狗', r:'go', s:'汪汪 (wāng wāng)', ss:'汪汪'}
     },
     cat: {
       'en-GB':{w:'cat', s:'meow'},
-      'cy-GB':{w:'cath', s:'miaw', c:true},
-      'pl-PL':{w:'kot', s:'miau'},
-      'ur-PK':{w:'بلی (billi)', ws:'بلی', s:'میاؤں (miyaon)', ss:'میاؤں', c:true},
-      'pa-IN':{w:'ਬਿੱਲੀ (billi)', ws:'ਬਿੱਲੀ', s:'ਮਿਆਊਂ (miaun)', ss:'ਮਿਆਊਂ', c:true},
-      'ar-SA':{w:'قطة (qitta)', ws:'قطة', s:'مواء (muwaa\')', ss:'مواء'},
-      'fr-FR':{w:'chat', s:'miaou'},
-      'es-ES':{w:'gato', s:'miau'},
-      'de-DE':{w:'Katze', s:'miau'},
-      'it-IT':{w:'gatto', s:'miao'},
-      'ja-JP':{w:'猫 (neko)', ws:'猫', s:'ニャー (nyā)', ss:'ニャー'},
-      'zh-CN':{w:'猫 (māo)', ws:'猫', s:'喵喵 (miāo miāo)', ss:'喵喵'}
+      'cy-GB':{w:'cath', r:'kahth', s:'miaw', c:true},
+      'pl-PL':{w:'kot', r:'kot', s:'miau'},
+      'ur-PK':{w:'بلی (billi)', ws:'بلی', r:'BIL-lee', s:'میاؤں (miyaon)', ss:'میاؤں', c:true},
+      'pa-IN':{w:'ਬਿੱਲੀ (billi)', ws:'ਬਿੱਲੀ', r:'BIL-lee', s:'ਮਿਆਊਂ (miaun)', ss:'ਮਿਆਊਂ', c:true},
+      'ar-SA':{w:'قطة (qitta)', ws:'قطة', r:'QIT-ta', s:'مواء (muwaa\')', ss:'مواء'},
+      'fr-FR':{w:'chat', r:'sha', s:'miaou'},
+      'es-ES':{w:'gato', r:'GAH-toh', s:'miau'},
+      'de-DE':{w:'Katze', r:'KAT-suh', s:'miau'},
+      'it-IT':{w:'gatto', r:'GAHT-toh', s:'miao'},
+      'ja-JP':{w:'猫 (neko)', ws:'猫', r:'NEH-koh', s:'ニャー (nyā)', ss:'ニャー'},
+      'zh-CN':{w:'猫 (māo)', ws:'猫', r:'mow', s:'喵喵 (miāo miāo)', ss:'喵喵'}
     },
     cow: {
       'en-GB':{w:'cow', s:'moo'},
-      'cy-GB':{w:'buwch', s:'mŵ'},
-      'pl-PL':{w:'krowa', s:'muu'},
-      'ur-PK':{w:'گائے (gaay)', ws:'گائے'},
-      'pa-IN':{w:'ਗਾਂ (gaan)', ws:'ਗਾਂ'},
-      'ar-SA':{w:'بقرة (baqara)', ws:'بقرة', s:'خوار (khowar)', ss:'خوار'},
-      'fr-FR':{w:'vache', s:'meuh'},
-      'es-ES':{w:'vaca', s:'mu'},
-      'de-DE':{w:'Kuh', s:'muh'},
-      'it-IT':{w:'mucca', s:'mu'},
-      'ja-JP':{w:'牛 (ushi)', ws:'牛', s:'モーモー (mō mō)', ss:'モーモー'},
-      'zh-CN':{w:'牛 (niú)', ws:'牛', s:'哞哞 (mōu mōu)', ss:'哞哞'}
+      'cy-GB':{w:'buwch', r:'bih-OOkh', s:'mŵ'},
+      'pl-PL':{w:'krowa', r:'KRO-va', s:'muu'},
+      'ur-PK':{w:'گائے (gaay)', ws:'گائے', r:'GAA-ay'},
+      'pa-IN':{w:'ਗਾਂ (gaan)', ws:'ਗਾਂ', r:'gaan'},
+      'ar-SA':{w:'بقرة (baqara)', ws:'بقرة', r:'BA-qa-ra', s:'خوار (khowar)', ss:'خوار'},
+      'fr-FR':{w:'vache', r:'vash', s:'meuh'},
+      'es-ES':{w:'vaca', r:'BAH-kah', s:'mu'},
+      'de-DE':{w:'Kuh', r:'koo', s:'muh'},
+      'it-IT':{w:'mucca', r:'MOOK-kah', s:'mu'},
+      'ja-JP':{w:'牛 (ushi)', ws:'牛', r:'OO-shee', s:'モーモー (mō mō)', ss:'モーモー'},
+      'zh-CN':{w:'牛 (niú)', ws:'牛', r:'nyoh', s:'哞哞 (mōu mōu)', ss:'哞哞'}
     },
     duck: {
       'en-GB':{w:'duck', s:'quack quack'},
-      'cy-GB':{w:'hwyaden', s:'cwac cwac', c:true},
-      'pl-PL':{w:'kaczka', s:'kwa kwa'},
-      'ur-PK':{w:'بطخ (batakh)', ws:'بطخ'},
-      'pa-IN':{w:'ਬੱਤਖ (battakh)', ws:'ਬੱਤਖ'},
-      'ar-SA':{w:'بطة (batta)', ws:'بطة', s:'بطبطة (batbata)', ss:'بطبطة'},
-      'fr-FR':{w:'canard', s:'coin coin'},
-      'es-ES':{w:'pato', s:'cua cua'},
-      'de-DE':{w:'Ente', s:'quak quak'},
-      'it-IT':{w:'anatra', s:'qua qua'},
-      'ja-JP':{w:'あひる (ahiru)', s:'ガーガー (gaa gaa)', ss:'ガーガー'},
-      'zh-CN':{w:'鸭 (yā)', ws:'鸭', s:'嘎嘎 (gā gā)', ss:'嘎嘎'}
+      'cy-GB':{w:'hwyaden', r:'hooi-AH-den', s:'cwac cwac', c:true},
+      'pl-PL':{w:'kaczka', r:'KATCH-ka', s:'kwa kwa'},
+      'ur-PK':{w:'بطخ (batakh)', ws:'بطخ', r:'BAT-akh'},
+      'pa-IN':{w:'ਬੱਤਖ (battakh)', ws:'ਬੱਤਖ', r:'BAT-takh'},
+      'ar-SA':{w:'بطة (batta)', ws:'بطة', r:'BAT-ta', s:'بطبطة (batbata)', ss:'بطبطة'},
+      'fr-FR':{w:'canard', r:'ka-NAR', s:'coin coin'},
+      'es-ES':{w:'pato', r:'PAH-toh', s:'cua cua'},
+      'de-DE':{w:'Ente', r:'EN-tuh', s:'quak quak'},
+      'it-IT':{w:'anatra', r:'AH-nah-trah', s:'qua qua'},
+      'ja-JP':{w:'あひる (ahiru)', r:'ah-HEE-roo', s:'ガーガー (gaa gaa)', ss:'ガーガー'},
+      'zh-CN':{w:'鸭 (yā)', ws:'鸭', r:'yah', s:'嘎嘎 (gā gā)', ss:'嘎嘎'}
     },
     pig: {
       'en-GB':{w:'pig', s:'oink oink'},
-      'cy-GB':{w:'mochyn', s:'soch soch'},
-      'pl-PL':{w:'świnia', s:'chrum chrum'},
-      'ur-PK':{w:'سور (soor)', ws:'سور'},
-      'pa-IN':{w:'ਸੂਰ (soor)', ws:'ਸੂਰ'},
-      'ar-SA':{w:'خنزير (khinzir)', ws:'خنزير', s:'قباع (qibaa\')', ss:'قباع', c:true},
-      'fr-FR':{w:'cochon', s:'groin groin'},
-      'es-ES':{w:'cerdo', s:'oinc oinc'},
-      'de-DE':{w:'Schwein', s:'grunz grunz'},
-      'it-IT':{w:'maiale', s:'oink oink'},
-      'ja-JP':{w:'豚 (buta)', ws:'豚', s:'ブーブー (buu buu)', ss:'ブーブー'},
-      'zh-CN':{w:'猪 (zhū)', ws:'猪', s:'哼哼 (hēng hēng)', ss:'哼哼'}
+      'cy-GB':{w:'mochyn', r:'MOKH-in', s:'soch soch'},
+      'pl-PL':{w:'świnia', r:'SHFEE-nya', s:'chrum chrum'},
+      'ur-PK':{w:'سور (soor)', ws:'سور', r:'soor'},
+      'pa-IN':{w:'ਸੂਰ (soor)', ws:'ਸੂਰ', r:'soor'},
+      'ar-SA':{w:'خنزير (khinzir)', ws:'خنزير', r:'khin-ZEER', s:'قباع (qibaa\')', ss:'قباع', c:true},
+      'fr-FR':{w:'cochon', r:'ko-SHO(n)', s:'groin groin'},
+      'es-ES':{w:'cerdo', r:'THEHR-doh', s:'oinc oinc'},
+      'de-DE':{w:'Schwein', r:'shvine', s:'grunz grunz'},
+      'it-IT':{w:'maiale', r:'mah-YAH-leh', s:'oink oink'},
+      'ja-JP':{w:'豚 (buta)', ws:'豚', r:'BOO-tah', s:'ブーブー (buu buu)', ss:'ブーブー'},
+      'zh-CN':{w:'猪 (zhū)', ws:'猪', r:'joo', s:'哼哼 (hēng hēng)', ss:'哼哼'}
     },
     rooster: {
       'en-GB':{w:'rooster', s:'cock-a-doodle-doo'},
-      'cy-GB':{w:'ceiliog', s:'cocadwdl-dŵ'},
-      'pl-PL':{w:'kogut', s:'kukuryku'},
-      'ur-PK':{w:'مرغا (murga)', ws:'مرغا'},
-      'pa-IN':{w:'ਕੁੱਕੜ (kukkar)', ws:'ਕੁੱਕੜ'},
-      'ar-SA':{w:'ديك (deek)', ws:'ديك', s:'كوكوكو (koko koko)', ss:'كوكوكو'},
-      'fr-FR':{w:'coq', s:'cocorico'},
-      'es-ES':{w:'gallo', s:'quiquiriquí'},
-      'de-DE':{w:'Hahn', s:'kikeriki'},
-      'it-IT':{w:'gallo', s:'chicchirichì'},
-      'ja-JP':{w:'にわとり (niwatori)', s:'コケコッコー (kokekokkō)', ss:'コケコッコー'},
-      'zh-CN':{w:'公鸡 (gōngjī)', ws:'公鸡', s:'喔喔喔 (ō ō ō)', ss:'喔喔喔'}
+      'cy-GB':{w:'ceiliog', r:'KAY-lyog', s:'cocadwdl-dŵ'},
+      'pl-PL':{w:'kogut', r:'KO-goot', s:'kukuryku'},
+      'ur-PK':{w:'مرغا (murga)', ws:'مرغا', r:'MUR-gaa'},
+      'pa-IN':{w:'ਕੁੱਕੜ (kukkar)', ws:'ਕੁੱਕੜ', r:'KUK-kar'},
+      'ar-SA':{w:'ديك (deek)', ws:'ديك', r:'deek', s:'كوكوكو (koko koko)', ss:'كوكوكو'},
+      'fr-FR':{w:'coq', r:'kok', s:'cocorico'},
+      'es-ES':{w:'gallo', r:'GAH-yoh', s:'quiquiriquí'},
+      'de-DE':{w:'Hahn', r:'hahn', s:'kikeriki'},
+      'it-IT':{w:'gallo', r:'GAHL-loh', s:'chicchirichì'},
+      'ja-JP':{w:'にわとり (niwatori)', r:'nee-wah-TOH-ree', s:'コケコッコー (kokekokkō)', ss:'コケコッコー'},
+      'zh-CN':{w:'公鸡 (gōngjī)', ws:'公鸡', r:'gong-jee', s:'喔喔喔 (ō ō ō)', ss:'喔喔喔'}
     },
     sheep: {
       'en-GB':{w:'sheep', s:'baa baa'},
-      'cy-GB':{w:'dafad', s:'mê'},
-      'pl-PL':{w:'owca', s:'beee'},
-      'ur-PK':{w:'بھیڑ (bhed)', ws:'بھیڑ'},
-      'pa-IN':{w:'ਭੇਡ (bhed)', ws:'ਭੇਡ'},
-      'ar-SA':{w:'خروف (kharoof)', ws:'خروف', s:'مأة (maa\')', ss:'مأة'},
-      'fr-FR':{w:'mouton', s:'bêêh'},
-      'es-ES':{w:'oveja', s:'beee'},
-      'de-DE':{w:'Schaf', s:'mäh mäh'},
-      'it-IT':{w:'pecora', s:'beee'},
-      'ja-JP':{w:'羊 (hitsuji)', ws:'羊', s:'メーメー (mē mē)', ss:'メーメー'},
-      'zh-CN':{w:'羊 (yáng)', ws:'羊', s:'咩咩 (miē miē)', ss:'咩咩'}
+      'cy-GB':{w:'dafad', r:'DAH-vad', s:'mê'},
+      'pl-PL':{w:'owca', r:'OF-tsa', s:'beee'},
+      'ur-PK':{w:'بھیڑ (bhed)', ws:'بھیڑ', r:'bhehr'},
+      'pa-IN':{w:'ਭੇਡ (bhed)', ws:'ਭੇਡ', r:'bhayr'},
+      'ar-SA':{w:'خروف (kharoof)', ws:'خروف', r:'kha-ROOF', s:'مأة (maa\')', ss:'مأة'},
+      'fr-FR':{w:'mouton', r:'moo-TO(n)', s:'bêêh'},
+      'es-ES':{w:'oveja', r:'oh-BEH-khah', s:'beee'},
+      'de-DE':{w:'Schaf', r:'shahf', s:'mäh mäh'},
+      'it-IT':{w:'pecora', r:'PEH-koh-rah', s:'beee'},
+      'ja-JP':{w:'羊 (hitsuji)', ws:'羊', r:'hee-TSOO-jee', s:'メーメー (mē mē)', ss:'メーメー'},
+      'zh-CN':{w:'羊 (yáng)', ws:'羊', r:'yahng', s:'咩咩 (miē miē)', ss:'咩咩'}
     },
     frog: {
       'en-GB':{w:'frog', s:'ribbit ribbit'},
-      'cy-GB':{w:'llyffant', s:'crawc'},
-      'pl-PL':{w:'żaba', s:'kum kum'},
-      'ur-PK':{w:'مینڈک (mendak)', ws:'مینڈک'},
-      'pa-IN':{w:'ਡੱਡੂ (daddu)', ws:'ਡੱਡੂ'},
-      'ar-SA':{w:'ضفدع (dafda\')', ws:'ضفدع', s:'نقيق (naqiq)', ss:'نقيق'},
-      'fr-FR':{w:'grenouille', s:'croa croa'},
-      'es-ES':{w:'rana', s:'croac croac'},
-      'de-DE':{w:'Frosch', s:'quak quak'},
-      'it-IT':{w:'rana', s:'cra cra'},
-      'ja-JP':{w:'蛙 (kaeru)', ws:'蛙', s:'ケロケロ (kero kero)', ss:'ケロケロ'},
-      'zh-CN':{w:'青蛙 (qīngwā)', ws:'青蛙', s:'呱呱 (guā guā)', ss:'呱呱'}
+      'cy-GB':{w:'llyffant', r:'LHUFF-ant', s:'crawc'},
+      'pl-PL':{w:'żaba', r:'ZHA-ba', s:'kum kum'},
+      'ur-PK':{w:'مینڈک (mendak)', ws:'مینڈک', r:'MAYN-dak'},
+      'pa-IN':{w:'ਡੱਡੂ (daddu)', ws:'ਡੱਡੂ', r:'DAD-doo'},
+      'ar-SA':{w:'ضفدع (dafda\')', ws:'ضفدع', r:'DIF-da', s:'نقيق (naqiq)', ss:'نقيق'},
+      'fr-FR':{w:'grenouille', r:'gruh-NOOY', s:'croa croa'},
+      'es-ES':{w:'rana', r:'RRAH-nah', s:'croac croac'},
+      'de-DE':{w:'Frosch', r:'frosh', s:'quak quak'},
+      'it-IT':{w:'rana', r:'RAH-nah', s:'cra cra'},
+      'ja-JP':{w:'蛙 (kaeru)', ws:'蛙', r:'KAH-eh-roo', s:'ケロケロ (kero kero)', ss:'ケロケロ'},
+      'zh-CN':{w:'青蛙 (qīngwā)', ws:'青蛙', r:'ching-wah', s:'呱呱 (guā guā)', ss:'呱呱'}
     },
     owl: {
       'en-GB':{w:'owl', s:'hoo hoo'},
-      'cy-GB':{w:'tylluan'},
-      'pl-PL':{w:'sowa', s:'hu hu'},
-      'ur-PK':{w:'الو (ulloo)', ws:'الو'},
-      'pa-IN':{w:'ਉੱਲੂ (ullu)', ws:'ਉੱਲੂ'},
-      'ar-SA':{w:'بومة (booma)', ws:'بومة', s:'بوو بوو (boo boo)', ss:'بوو بوو', c:true},
-      'fr-FR':{w:'hibou', s:'ouh ouh'},
-      'es-ES':{w:'búho', s:'uh uh'},
-      'de-DE':{w:'Eule'},
-      'it-IT':{w:'gufo', s:'huu huu'},
-      'ja-JP':{w:'フクロウ (fukurou)', s:'ホウホウ (hō hō)', ss:'ホウホウ'},
-      'zh-CN':{w:'猫头鹰 (māotóuyīng)', ws:'猫头鹰', s:'咕咕 (gū gū)', ss:'咕咕', c:true}
+      'cy-GB':{w:'tylluan', r:'tuh-LHEE-an'},
+      'pl-PL':{w:'sowa', r:'SO-va', s:'hu hu'},
+      'ur-PK':{w:'الو (ulloo)', ws:'الو', r:'UL-loo'},
+      'pa-IN':{w:'ਉੱਲੂ (ullu)', ws:'ਉੱਲੂ', r:'UL-loo'},
+      'ar-SA':{w:'بومة (booma)', ws:'بومة', r:'BOO-ma', s:'بوو بوو (boo boo)', ss:'بوو بوو', c:true},
+      'fr-FR':{w:'hibou', r:'ee-BOO', s:'ouh ouh'},
+      'es-ES':{w:'búho', r:'BOO-oh', s:'uh uh'},
+      'de-DE':{w:'Eule', r:'OY-luh'},
+      'it-IT':{w:'gufo', r:'GOO-foh', s:'huu huu'},
+      'ja-JP':{w:'フクロウ (fukurou)', r:'foo-KOO-roh', s:'ホウホウ (hō hō)', ss:'ホウホウ'},
+      'zh-CN':{w:'猫头鹰 (māotóuyīng)', ws:'猫头鹰', r:'mow-toh-ying', s:'咕咕 (gū gū)', ss:'咕咕', c:true}
     },
     chick: {
       'en-GB':{w:'chick', s:'cheep cheep'},
-      'cy-GB':{w:'cyw'},
-      'pl-PL':{w:'kurczątko', s:'pio pio'},
-      'ur-PK':{w:'چوزہ (chooza)', ws:'چوزہ'},
-      'pa-IN':{w:'ਚੂਚਾ (chucha)', ws:'ਚੂਚਾ'},
-      'ar-SA':{w:'كتكوت (katkoot)', ws:'كتكوت', s:'بيبي بيبي (peep peep)', ss:'بيبي بيبي', c:true},
-      'fr-FR':{w:'poussin', s:'piou piou'},
-      'es-ES':{w:'pollito', s:'pío pío'},
-      'de-DE':{w:'Küken', s:'piep piep'},
-      'it-IT':{w:'pulcino', s:'pio pio'},
-      'ja-JP':{w:'ひよこ (hiyoko)', s:'ピヨピヨ (piyo piyo)', ss:'ピヨピヨ'},
-      'zh-CN':{w:'小鸡 (xiǎojī)', ws:'小鸡', s:'叽叽 (jī jī)', ss:'叽叽'}
+      'cy-GB':{w:'cyw', r:'kiw'},
+      'pl-PL':{w:'kurczątko', r:'koor-CHONT-ko', s:'pio pio'},
+      'ur-PK':{w:'چوزہ (chooza)', ws:'چوزہ', r:'CHOO-zaa'},
+      'pa-IN':{w:'ਚੂਚਾ (chucha)', ws:'ਚੂਚਾ', r:'CHOO-chaa'},
+      'ar-SA':{w:'كتكوت (katkoot)', ws:'كتكوت', r:'kat-KOOT', s:'بيبي بيبي (peep peep)', ss:'بيبي بيبي', c:true},
+      'fr-FR':{w:'poussin', r:'poo-SEH(n)', s:'piou piou'},
+      'es-ES':{w:'pollito', r:'poh-YEE-toh', s:'pío pío'},
+      'de-DE':{w:'Küken', r:'KEW-ken', s:'piep piep'},
+      'it-IT':{w:'pulcino', r:'pool-CHEE-noh', s:'pio pio'},
+      'ja-JP':{w:'ひよこ (hiyoko)', r:'hee-YOH-koh', s:'ピヨピヨ (piyo piyo)', ss:'ピヨピヨ'},
+      'zh-CN':{w:'小鸡 (xiǎojī)', ws:'小鸡', r:'shyow-jee', s:'叽叽 (jī jī)', ss:'叽叽'}
     },
     horse: {
       'en-GB':{w:'horse', s:'neigh'},
-      'cy-GB':{w:'ceffyl'},
-      'pl-PL':{w:'koń', s:'ihaha'},
-      'ur-PK':{w:'گھوڑا (ghora)', ws:'گھوڑا'},
-      'pa-IN':{w:'ਘੋੜਾ (ghora)', ws:'ਘੋੜਾ'},
-      'ar-SA':{w:'حصان (hisaan)', ws:'حصان', s:'صهيل (saheel)', ss:'صهيل'},
-      'fr-FR':{w:'cheval', s:'hiii hiii'},
-      'es-ES':{w:'caballo', s:'ji ji'},
-      'de-DE':{w:'Pferd', s:'wiehiehie'},
-      'it-IT':{w:'cavallo', s:'hiii hiii'},
-      'ja-JP':{w:'馬 (uma)', ws:'馬', s:'ヒーン (hīn)', ss:'ヒーン'},
-      'zh-CN':{w:'马 (mǎ)', ws:'马'}
+      'cy-GB':{w:'ceffyl', r:'KEF-il'},
+      'pl-PL':{w:'koń', r:'KON-y', s:'ihaha'},
+      'ur-PK':{w:'گھوڑا (ghora)', ws:'گھوڑا', r:'GHO-raa'},
+      'pa-IN':{w:'ਘੋੜਾ (ghora)', ws:'ਘੋੜਾ', r:'KOH-raa'},
+      'ar-SA':{w:'حصان (hisaan)', ws:'حصان', r:'hi-SAAN', s:'صهيل (saheel)', ss:'صهيل'},
+      'fr-FR':{w:'cheval', r:'shuh-VAL', s:'hiii hiii'},
+      'es-ES':{w:'caballo', r:'kah-BAH-yoh', s:'ji ji'},
+      'de-DE':{w:'Pferd', r:'pfayrt', s:'wiehiehie'},
+      'it-IT':{w:'cavallo', r:'kah-VAHL-loh', s:'hiii hiii'},
+      'ja-JP':{w:'馬 (uma)', ws:'馬', r:'OO-mah', s:'ヒーン (hīn)', ss:'ヒーン'},
+      'zh-CN':{w:'马 (mǎ)', ws:'马', r:'mah'}
     },
     goat: {
       'en-GB':{w:'goat', s:'maa'},
-      'cy-GB':{w:'gafr'},
-      'pl-PL':{w:'koza', s:'meee'},
-      'ur-PK':{w:'بکری (bakri)', ws:'بکری'},
-      'pa-IN':{w:'ਬੱਕਰੀ (bakri)', ws:'ਬੱਕਰੀ'},
-      'ar-SA':{w:'ماعز (maa\'iz)', ws:'ماعز'},
-      'fr-FR':{w:'chèvre', s:'bêêê'},
-      'es-ES':{w:'cabra', s:'beee'},
-      'de-DE':{w:'Ziege', s:'mäh mäh'},
-      'it-IT':{w:'capra', s:'bèèè'},
-      'ja-JP':{w:'ヤギ (yagi)', ws:'ヤギ', s:'メーメー (mē mē)', ss:'メーメー'},
-      'zh-CN':{w:'山羊 (shānyáng)', ws:'山羊', s:'咩咩 (miē miē)', ss:'咩咩'}
+      'cy-GB':{w:'gafr', r:'GAH-vur'},
+      'pl-PL':{w:'koza', r:'KO-za', s:'meee'},
+      'ur-PK':{w:'بکری (bakri)', ws:'بکری', r:'BAK-ree'},
+      'pa-IN':{w:'ਬੱਕਰੀ (bakri)', ws:'ਬੱਕਰੀ', r:'BAK-ree'},
+      'ar-SA':{w:'ماعز (maa\'iz)', ws:'ماعز', r:'MAA-iz'},
+      'fr-FR':{w:'chèvre', r:'SHEV-ruh', s:'bêêê'},
+      'es-ES':{w:'cabra', r:'KAH-brah', s:'beee'},
+      'de-DE':{w:'Ziege', r:'TSEE-guh', s:'mäh mäh'},
+      'it-IT':{w:'capra', r:'KAH-prah', s:'bèèè'},
+      'ja-JP':{w:'ヤギ (yagi)', ws:'ヤギ', r:'YAH-gee', s:'メーメー (mē mē)', ss:'メーメー'},
+      'zh-CN':{w:'山羊 (shānyáng)', ws:'山羊', r:'shahn-yahng', s:'咩咩 (miē miē)', ss:'咩咩'}
     },
     wolf: {
       'en-GB':{w:'wolf', s:'awoo'},
-      'cy-GB':{w:'blaidd'},
-      'pl-PL':{w:'wilk', s:'ałuuu'},
-      'ur-PK':{w:'بھیڑیا (bheriya)', ws:'بھیڑیا'},
-      'pa-IN':{w:'ਬਘਿਆੜ (baghiaar)', ws:'ਬਘਿਆੜ'},
-      'ar-SA':{w:'ذئب (dhi\'b)', ws:'ذئب'},
-      'fr-FR':{w:'loup', s:'aoouu'},
-      'es-ES':{w:'lobo', s:'auuu'},
-      'de-DE':{w:'Wolf', s:'auuu'},
-      'it-IT':{w:'lupo', s:'auuu'},
-      'ja-JP':{w:'オオカミ (ōkami)', ws:'オオカミ', s:'アオーン (aōn)', ss:'アオーン'},
-      'zh-CN':{w:'狼 (láng)', ws:'狼'}
+      'cy-GB':{w:'blaidd', r:'blyedh'},
+      'pl-PL':{w:'wilk', r:'vilk', s:'ałuuu'},
+      'ur-PK':{w:'بھیڑیا (bheriya)', ws:'بھیڑیا', r:'BHAY-ree-yaa'},
+      'pa-IN':{w:'ਬਘਿਆੜ (baghiaar)', ws:'ਬਘਿਆੜ', r:'ba-GHEE-yaar'},
+      'ar-SA':{w:'ذئب (dhi\'b)', ws:'ذئب', r:'dhib'},
+      'fr-FR':{w:'loup', r:'loo', s:'aoouu'},
+      'es-ES':{w:'lobo', r:'LOH-boh', s:'auuu'},
+      'de-DE':{w:'Wolf', r:'volf', s:'auuu'},
+      'it-IT':{w:'lupo', r:'LOO-poh', s:'auuu'},
+      'ja-JP':{w:'オオカミ (ōkami)', ws:'オオカミ', r:'oh-KAH-mee', s:'アオーン (aōn)', ss:'アオーン'},
+      'zh-CN':{w:'狼 (láng)', ws:'狼', r:'lahng'}
     },
     lion: {
       'en-GB':{w:'lion', s:'roar'},
-      'cy-GB':{w:'llew', s:'rhuo'},
-      'pl-PL':{w:'lew', s:'grrr'},
-      'ur-PK':{w:'شیر (sher)', ws:'شیر'},
-      'pa-IN':{w:'ਸ਼ੇਰ (sher)', ws:'ਸ਼ੇਰ'},
-      'ar-SA':{w:'أسد (asad)', ws:'أسد'},
-      'fr-FR':{w:'lion', s:'grrr'},
-      'es-ES':{w:'león', s:'grrr'},
-      'de-DE':{w:'Löwe'},
-      'it-IT':{w:'leone', s:'groar'},
-      'ja-JP':{w:'ライオン (raion)', ws:'ライオン', s:'ガオー (gaō)', ss:'ガオー'},
-      'zh-CN':{w:'狮子 (shīzi)', ws:'狮子'}
+      'cy-GB':{w:'llew', r:'LHAY-oo', s:'rhuo'},
+      'pl-PL':{w:'lew', r:'lef', s:'grrr'},
+      'ur-PK':{w:'شیر (sher)', ws:'شیر', r:'shayr'},
+      'pa-IN':{w:'ਸ਼ੇਰ (sher)', ws:'ਸ਼ੇਰ', r:'shayr'},
+      'ar-SA':{w:'أسد (asad)', ws:'أسد', r:'A-sad'},
+      'fr-FR':{w:'lion', r:'LYO(n)', s:'grrr'},
+      'es-ES':{w:'león', r:'leh-OHN', s:'grrr'},
+      'de-DE':{w:'Löwe', r:'LUR-vuh'},
+      'it-IT':{w:'leone', r:'leh-OH-neh', s:'groar'},
+      'ja-JP':{w:'ライオン (raion)', ws:'ライオン', r:'RAH-ee-on', s:'ガオー (gaō)', ss:'ガオー'},
+      'zh-CN':{w:'狮子 (shīzi)', ws:'狮子', r:'shuh-dzuh'}
     },
     monkey: {
       'en-GB':{w:'monkey', s:'ooh ooh ah ah'},
-      'cy-GB':{w:'mwnci'},
-      'pl-PL':{w:'małpa', s:'u-u a-a'},
-      'ur-PK':{w:'بندر (bandar)', ws:'بندر'},
-      'pa-IN':{w:'ਬਾਂਦਰ (baandar)', ws:'ਬਾਂਦਰ'},
-      'ar-SA':{w:'قرد (qird)', ws:'قرد'},
-      'fr-FR':{w:'singe'},
-      'es-ES':{w:'mono', s:'iih iih'},
-      'de-DE':{w:'Affe', s:'u-u a-a'},
-      'it-IT':{w:'scimmia'},
-      'ja-JP':{w:'猿 (saru)', ws:'猿', s:'ウキウキ (uki uki)', ss:'ウキウキ'},
-      'zh-CN':{w:'猴子 (hóuzi)', ws:'猴子', s:'吱吱 (zhī zhī)', ss:'吱吱'}
+      'cy-GB':{w:'mwnci', r:'MOONG-kee'},
+      'pl-PL':{w:'małpa', r:'MAW-pa', s:'u-u a-a'},
+      'ur-PK':{w:'بندر (bandar)', ws:'بندر', r:'BUN-dar'},
+      'pa-IN':{w:'ਬਾਂਦਰ (baandar)', ws:'ਬਾਂਦਰ', r:'BAAN-dar'},
+      'ar-SA':{w:'قرد (qird)', ws:'قرد', r:'QIRD'},
+      'fr-FR':{w:'singe', r:'SEH(n)zh'},
+      'es-ES':{w:'mono', r:'MOH-noh', s:'iih iih'},
+      'de-DE':{w:'Affe', r:'AH-fuh', s:'u-u a-a'},
+      'it-IT':{w:'scimmia', r:'SHEEM-myah'},
+      'ja-JP':{w:'猿 (saru)', ws:'猿', r:'SAH-roo', s:'ウキウキ (uki uki)', ss:'ウキウキ'},
+      'zh-CN':{w:'猴子 (hóuzi)', ws:'猴子', r:'hoh-dzuh', s:'吱吱 (zhī zhī)', ss:'吱吱'}
     },
     mouse: {
       'en-GB':{w:'mouse', s:'squeak'},
-      'cy-GB':{w:'llygoden'},
-      'pl-PL':{w:'mysz', s:'pi pi'},
-      'ur-PK':{w:'چوہا (chooha)', ws:'چوہا', s:'چیں چیں (cheen cheen)', ss:'چیں چیں'},
-      'pa-IN':{w:'ਚੂਹਾ (chooha)', ws:'ਚੂਹਾ', s:'ਚੀਂ ਚੀਂ (cheen cheen)', ss:'ਚੀਂ ਚੀਂ'},
-      'ar-SA':{w:'فأر (fa\'r)', ws:'فأر'},
-      'fr-FR':{w:'souris'},
-      'es-ES':{w:'ratón'},
-      'de-DE':{w:'Maus', s:'piep piep'},
-      'it-IT':{w:'topo', s:'squit squit'},
-      'ja-JP':{w:'ねずみ (nezumi)', ws:'ねずみ', s:'チューチュー (chū chū)', ss:'チューチュー'},
-      'zh-CN':{w:'老鼠 (lǎoshǔ)', ws:'老鼠', s:'吱吱 (zhī zhī)', ss:'吱吱'}
+      'cy-GB':{w:'llygoden', r:'lhuh-GOD-en'},
+      'pl-PL':{w:'mysz', r:'mish', s:'pi pi'},
+      'ur-PK':{w:'چوہا (chooha)', ws:'چوہا', r:'CHOO-haa', s:'چیں چیں (cheen cheen)', ss:'چیں چیں'},
+      'pa-IN':{w:'ਚੂਹਾ (chooha)', ws:'ਚੂਹਾ', r:'CHOO-haa', s:'ਚੀਂ ਚੀਂ (cheen cheen)', ss:'ਚੀਂ ਚੀਂ'},
+      'ar-SA':{w:'فأر (fa\'r)', ws:'فأر', r:'far'},
+      'fr-FR':{w:'souris', r:'soo-REE'},
+      'es-ES':{w:'ratón', r:'rrah-TOHN'},
+      'de-DE':{w:'Maus', r:'mowss', s:'piep piep'},
+      'it-IT':{w:'topo', r:'TOH-poh', s:'squit squit'},
+      'ja-JP':{w:'ねずみ (nezumi)', ws:'ねずみ', r:'neh-ZOO-mee', s:'チューチュー (chū chū)', ss:'チューチュー'},
+      'zh-CN':{w:'老鼠 (lǎoshǔ)', ws:'老鼠', r:'lao-shoo', s:'吱吱 (zhī zhī)', ss:'吱吱'}
     },
     bee: {
       'en-GB':{w:'bee', s:'buzz'},
-      'cy-GB':{w:'gwenynen'},
-      'pl-PL':{w:'pszczoła', s:'bzzz'},
-      'ur-PK':{w:'شہد کی مکھی (shehad ki makkhi)', ws:'شہد کی مکھی'},
-      'pa-IN':{w:'ਮਧੂਮੱਖੀ (madhumakkhi)', ws:'ਮਧੂਮੱਖੀ'},
-      'ar-SA':{w:'نحلة (nahla)', ws:'نحلة', s:'طنين (taneen)', ss:'طنين'},
-      'fr-FR':{w:'abeille', s:'bzzz'},
-      'es-ES':{w:'abeja', s:'zum'},
-      'de-DE':{w:'Biene', s:'summ summ'},
-      'it-IT':{w:'ape', s:'bzzz'},
-      'ja-JP':{w:'ハチ (hachi)', ws:'ハチ', s:'ブーン (būn)', ss:'ブーン'},
-      'zh-CN':{w:'蜜蜂 (mìfēng)', ws:'蜜蜂', s:'嗡嗡 (wēng wēng)', ss:'嗡嗡'}
+      'cy-GB':{w:'gwenynen', r:'gwe-NUH-nen'},
+      'pl-PL':{w:'pszczoła', r:'PSHCHO-wa', s:'bzzz'},
+      'ur-PK':{w:'شہد کی مکھی (shehad ki makkhi)', ws:'شہد کی مکھی', r:'SHEH-had kee MAK-khee'},
+      'pa-IN':{w:'ਮਧੂਮੱਖੀ (madhumakkhi)', ws:'ਮਧੂਮੱਖੀ', r:'MA-doo-MAK-khee'},
+      'ar-SA':{w:'نحلة (nahla)', ws:'نحلة', r:'NAH-la', s:'طنين (taneen)', ss:'طنين'},
+      'fr-FR':{w:'abeille', r:'a-BAY', s:'bzzz'},
+      'es-ES':{w:'abeja', r:'ah-BEH-khah', s:'zum'},
+      'de-DE':{w:'Biene', r:'BEE-nuh', s:'summ summ'},
+      'it-IT':{w:'ape', r:'AH-peh', s:'bzzz'},
+      'ja-JP':{w:'ハチ (hachi)', ws:'ハチ', r:'HAH-chee', s:'ブーン (būn)', ss:'ブーン'},
+      'zh-CN':{w:'蜜蜂 (mìfēng)', ws:'蜜蜂', r:'mee-fung', s:'嗡嗡 (wēng wēng)', ss:'嗡嗡'}
     },
     snake: {
       'en-GB':{w:'snake', s:'hiss'},
-      'cy-GB':{w:'neidr'},
-      'pl-PL':{w:'wąż', s:'sss'},
-      'ur-PK':{w:'سانپ (saanp)', ws:'سانپ'},
-      'pa-IN':{w:'ਸੱਪ (sapp)', ws:'ਸੱਪ'},
-      'ar-SA':{w:'ثعبان (thu\'baan)', ws:'ثعبان'},
-      'fr-FR':{w:'serpent', s:'siff'},
-      'es-ES':{w:'serpiente', s:'ssss'},
-      'de-DE':{w:'Schlange', s:'zisch'},
-      'it-IT':{w:'serpente', s:'pisss'},
-      'ja-JP':{w:'ヘビ (hebi)', ws:'ヘビ', s:'シャー (shā)', ss:'シャー'},
-      'zh-CN':{w:'蛇 (shé)', ws:'蛇', s:'嘶嘶 (sī sī)', ss:'嘶嘶'}
+      'cy-GB':{w:'neidr', r:'NAY-dur'},
+      'pl-PL':{w:'wąż', r:'vawnsh', s:'sss'},
+      'ur-PK':{w:'سانپ (saanp)', ws:'سانپ', r:'saanp'},
+      'pa-IN':{w:'ਸੱਪ (sapp)', ws:'ਸੱਪ', r:'sap'},
+      'ar-SA':{w:'ثعبان (thu\'baan)', ws:'ثعبان', r:'thoo-BAAN'},
+      'fr-FR':{w:'serpent', r:'sehr-PAH(n)', s:'siff'},
+      'es-ES':{w:'serpiente', r:'sehr-PYEHN-teh', s:'ssss'},
+      'de-DE':{w:'Schlange', r:'SHLANG-uh', s:'zisch'},
+      'it-IT':{w:'serpente', r:'sehr-PEHN-teh', s:'pisss'},
+      'ja-JP':{w:'ヘビ (hebi)', ws:'ヘビ', r:'HEH-bee', s:'シャー (shā)', ss:'シャー'},
+      'zh-CN':{w:'蛇 (shé)', ws:'蛇', r:'shuh', s:'嘶嘶 (sī sī)', ss:'嘶嘶'}
     },
     elephant: {
       'en-GB':{w:'elephant', s:'toot'},
-      'cy-GB':{w:'eliffant', s:'rhuo'},
-      'pl-PL':{w:'słoń', s:'tru tru'},
-      'ur-PK':{w:'ہاتھی (haathi)', ws:'ہاتھی'},
-      'pa-IN':{w:'ਹਾਥੀ (haathi)', ws:'ਹਾਥੀ'},
-      'ar-SA':{w:'فيل (feel)', ws:'فيل'},
-      'fr-FR':{w:'éléphant'},
-      'es-ES':{w:'elefante'},
-      'de-DE':{w:'Elefant', s:'töröö'},
-      'it-IT':{w:'elefante'},
-      'ja-JP':{w:'ゾウ (zō)', ws:'ゾウ', s:'パオーン (paōn)', ss:'パオーン'},
-      'zh-CN':{w:'大象 (dàxiàng)', ws:'大象'}
+      'cy-GB':{w:'eliffant', r:'EL-iff-ant', s:'rhuo'},
+      'pl-PL':{w:'słoń', r:'SWON-y', s:'tru tru'},
+      'ur-PK':{w:'ہاتھی (haathi)', ws:'ہاتھی', r:'HAA-thee'},
+      'pa-IN':{w:'ਹਾਥੀ (haathi)', ws:'ਹਾਥੀ', r:'HAA-thee'},
+      'ar-SA':{w:'فيل (feel)', ws:'فيل', r:'feel'},
+      'fr-FR':{w:'éléphant', r:'ay-lay-FAH(n)'},
+      'es-ES':{w:'elefante', r:'eh-leh-FAHN-teh'},
+      'de-DE':{w:'Elefant', r:'eh-leh-FANT', s:'töröö'},
+      'it-IT':{w:'elefante', r:'eh-leh-FAHN-teh'},
+      'ja-JP':{w:'ゾウ (zō)', ws:'ゾウ', r:'zoh', s:'パオーン (paōn)', ss:'パオーン'},
+      'zh-CN':{w:'大象 (dàxiàng)', ws:'大象', r:'dah-shyahng'}
     },
     turkey: {
       'en-GB':{w:'turkey', s:'gobble gobble'},
-      'cy-GB':{w:'twrci'},
-      'pl-PL':{w:'indyk', s:'gul gul'},
-      'ur-PK':{w:'ٹرکی (turkey)', ws:'ٹرکی'},
-      'pa-IN':{w:'ਟਰਕੀ (turkey)', ws:'ਟਰਕੀ'},
-      'ar-SA':{w:'ديك رومي (deek roomi)', ws:'ديك رومي'},
-      'fr-FR':{w:'dinde', s:'glou glou'},
-      'es-ES':{w:'pavo', s:'glu glu'},
-      'de-DE':{w:'Truthahn'},
-      'it-IT':{w:'tacchino', s:'glu glu'},
-      'ja-JP':{w:'七面鳥 (shichimenchō)', ws:'七面鳥'},
-      'zh-CN':{w:'火鸡 (huǒjī)', ws:'火鸡', s:'咯咯 (gē gē)', ss:'咯咯'}
+      'cy-GB':{w:'twrci', r:'TOOR-kee'},
+      'pl-PL':{w:'indyk', r:'IN-dik', s:'gul gul'},
+      'ur-PK':{w:'ٹرکی (turkey)', ws:'ٹرکی', r:'TUR-kee'},
+      'pa-IN':{w:'ਟਰਕੀ (turkey)', ws:'ਟਰਕੀ', r:'TUR-kee'},
+      'ar-SA':{w:'ديك رومي (deek roomi)', ws:'ديك رومي', r:'deek ROO-mee'},
+      'fr-FR':{w:'dinde', r:'deh(n)d', s:'glou glou'},
+      'es-ES':{w:'pavo', r:'PAH-boh', s:'glu glu'},
+      'de-DE':{w:'Truthahn', r:'TROOT-hahn'},
+      'it-IT':{w:'tacchino', r:'tahk-KEE-noh', s:'glu glu'},
+      'ja-JP':{w:'七面鳥 (shichimenchō)', ws:'七面鳥', r:'shee-chee-MEN-choh'},
+      'zh-CN':{w:'火鸡 (huǒjī)', ws:'火鸡', r:'hwaw-jee', s:'咯咯 (gē gē)', ss:'咯咯'}
     }
   };
 
@@ -673,7 +680,7 @@
         var e = WORDS_RAW[animalId][code];
         var source = e.c ? 'community' : 'seed';
         var soundSource = (e.c || e.sc) ? 'community' : 'seed';
-        var words = toVariants(e.w).map(function(v){ return {text:v.text, speak:v.speak||e.ws||v.text, source:source}; });
+        var words = toVariants(e.w).map(function(v){ return {text:v.text, speak:v.speak||e.ws||v.text, source:source, guide:e.r}; });
         var sounds = toVariants(e.s).map(function(v){ return {text:v.text, speak:v.speak||e.ss||v.text, source:soundSource}; });
         out[animalId][code] = {words:words, sounds:sounds};
       });
@@ -681,7 +688,7 @@
     return out;
   }
 
-  var STORAGE_KEY = 'animalLanguage_v1';
+  var STORAGE_KEY = 'animalLanguage_v2';  // bump when the built-in data changes, so old saved copies don't hide the update
   var state = null;
   var currentOpenAnimalId = null;
   var adminUrlHint = /(^|[?&])admin=1(&|$)/.test(location.search);
@@ -945,11 +952,14 @@
     var label = variant.text ? escapeHtml(variant.text) : '(recording)';
     var muted = (!hasRec && !voiceOk) ? ' no-voice' : '';
     var tag = variant.pending ? '<span class="pill-tag pending">Pending review</span>' : (variant.source==='community' ? '<span class="pill-tag">Community</span>' : '');
+    var hasGuide = (kind === 'words' && variant.guide);
     return '<button type="button" class="pill'+muted+'" data-play="'+animalId+'|'+code+'|'+kind+'|'+idx+'" aria-label="Play">' +
       '<span class="pill-icon">'+playIcon+'</span>' +
-      '<span class="pill-text">'+label+'</span>' +
+      '<span class="pill-body"><span class="pill-text">'+label+'</span>' +
+        (hasGuide ? '<span class="pill-sub"><span class="pill-guide">'+escapeHtml(variant.guide)+'</span>'+tag+'</span>' : '') +
+      '</span>' +
       (hasRec ? '<span class="pill-mic" title="Recorded audio">🎙</span>' : '') +
-      tag +
+      (hasGuide ? "" : tag) +
       '</button>';
   }
 
@@ -997,8 +1007,18 @@
     } else {
       var hint = document.createElement('p');
       hint.className = 'panel-hint';
-      hint.textContent = 'Tap a word or sound to hear it.';
+      hint.textContent = 'Tap a word or sound to hear it. The small text under a word shows how to say it.';
       body.appendChild(hint);
+      var key = document.createElement('details');
+      key.className = 'panel-key';
+      key.innerHTML = '<summary>How to read the pronunciation hints</summary>' +
+        '<p>Say the capital letters louder (that is the stressed part). ' +
+        '<b>kh</b> is a rough sound like the end of Scottish <i>loch</i>. ' +
+        '<b>lh</b> is Welsh <i>ll</i>: put your tongue as if to say <i>l</i> and blow. ' +
+        '<b>dh</b> is the <i>th</i> in <i>this</i>. <b>q</b> is a <i>k</i> said further back in the throat. ' +
+        '<b>(n)</b> means the vowel is nasal; do not say the n. <b>rr</b> is a rolled r. ' +
+        'These are rough guides written for English speakers, not exact. Mandarin tones are not shown.</p>';
+      body.appendChild(key);
       var gridEl = document.createElement('div');
       gridEl.className = 'lang-grid';
       gridEl.innerHTML = langs.map(function(l){ return langTileMarkup(animalId, l); }).join('');
